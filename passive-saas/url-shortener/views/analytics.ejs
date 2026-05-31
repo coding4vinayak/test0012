@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - <%= link.title || link.short_code %> - LinkSnap</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">LinkSnap</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container analytics-page">
+    <div class="analytics-header">
+      <h1>Analytics: <%= link.title || link.short_code %></h1>
+      <p class="analytics-url">
+        <strong>Short:</strong> /<%= link.short_code %> |
+        <strong>Original:</strong> <a href="<%= link.original_url %>" target="_blank"><%= link.original_url %></a>
+      </p>
+      <div class="analytics-stats">
+        <div class="stat-card">
+          <div class="stat-value"><%= link.click_count %></div>
+          <div class="stat-label">Total Clicks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="unique-referrers">-</div>
+          <div class="stat-label">Referrers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value"><%= new Date(link.created_at).toLocaleDateString() %></div>
+          <div class="stat-label">Created</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Clicks Over Time</h3>
+        <canvas id="timeseries-chart" width="600" height="250"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Top Referrers</h3>
+        <canvas id="referrers-chart" width="600" height="250"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Device Breakdown</h3>
+        <canvas id="devices-chart" width="600" height="250"></canvas>
+      </div>
+    </div>
+
+    <div class="recent-clicks">
+      <h3>Recent Clicks</h3>
+      <table class="clicks-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>IP Address</th>
+            <th>Referrer</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody id="clicks-tbody">
+          <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/charts.js"></script>
+  <script>
+    const linkId = '<%= link.id %>';
+
+    async function loadAnalytics() {
+      // Load time series
+      const tsRes = await fetch('/analytics/' + linkId + '/timeseries');
+      const tsData = await tsRes.json();
+      drawTimeseriesChart(document.getElementById('timeseries-chart'), tsData);
+
+      // Load referrers
+      const refRes = await fetch('/analytics/' + linkId + '/referrers');
+      const refData = await refRes.json();
+      document.getElementById('unique-referrers').textContent = refData.length;
+      drawBarChart(document.getElementById('referrers-chart'), refData.map(r => ({
+        label: r.referrer || 'Direct',
+        value: r.count
+      })));
+
+      // Load devices
+      const devRes = await fetch('/analytics/' + linkId + '/devices');
+      const devData = await devRes.json();
+      drawBarChart(document.getElementById('devices-chart'), Object.entries(devData).map(([label, value]) => ({
+        label, value
+      })));
+
+      // Load recent clicks
+      const clicksRes = await fetch('/analytics/' + linkId + '/clicks');
+      const clicksData = await clicksRes.json();
+      const tbody = document.getElementById('clicks-tbody');
+      if (clicksData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4">No clicks yet</td></tr>';
+      } else {
+        tbody.innerHTML = clicksData.slice(0, 20).map(click => `
+          <tr>
+            <td>${new Date(click.created_at).toLocaleString()}</td>
+            <td>${click.ip_address}</td>
+            <td>${click.referrer || 'Direct'}</td>
+            <td>${detectDevice(click.user_agent)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function detectDevice(ua) {
+      if (!ua) return 'Unknown';
+      ua = ua.toLowerCase();
+      if (ua.includes('mobile') || ua.includes('iphone') || ua.includes('android')) {
+        if (ua.includes('tablet') || ua.includes('ipad')) return 'Tablet';
+        return 'Mobile';
+      }
+      return 'Desktop';
+    }
+
+    loadAnalytics();
+  </script>
+</body>
+</html>

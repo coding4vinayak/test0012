@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkSnap - URL Shortener with Analytics</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">LinkSnap</a>
+      <div class="nav-links">
+        <% if (user) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/auth/logout">Logout</a>
+        <% } else { %>
+          <a href="/auth/login">Login</a>
+          <a href="/auth/register" class="btn btn-primary btn-sm">Get Started</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Shorten Links. Track Clicks. Grow Faster.</h1>
+      <p class="hero-subtitle">Create short, memorable links and gain powerful insights into your audience with real-time analytics.</p>
+      <div class="hero-demo">
+        <div class="demo-input-group">
+          <input type="url" id="demo-url" placeholder="Paste your long URL here..." class="demo-input">
+          <button id="demo-btn" class="btn btn-primary">Shorten</button>
+        </div>
+        <div id="demo-result" class="demo-result" style="display: none;">
+          <span id="demo-short-url"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>Powerful Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#128279;</div>
+          <h3>Custom Short Links</h3>
+          <p>Create branded short links with custom aliases or let us generate one for you.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128200;</div>
+          <h3>Click Analytics</h3>
+          <p>Track every click with detailed analytics including referrers, devices, and location.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128337;</div>
+          <h3>Real-time Tracking</h3>
+          <p>See clicks as they happen with real-time analytics and time series charts.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128241;</div>
+          <h3>Device Breakdown</h3>
+          <p>Understand your audience with device type detection: mobile, tablet, and desktop.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#127760;</div>
+          <h3>Referrer Tracking</h3>
+          <p>Know where your traffic comes from with top referrer analysis.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Fast Redirects</h3>
+          <p>Lightning-fast redirects that never slow down your visitors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to supercharge your links?</h2>
+      <p>Start shortening URLs and tracking clicks today. Free to get started.</p>
+      <a href="/auth/register" class="btn btn-primary btn-lg">Create Free Account</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>LinkSnap - URL Shortener with Analytics</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('demo-btn').addEventListener('click', function() {
+      const url = document.getElementById('demo-url').value;
+      if (!url) return;
+      try {
+        new URL(url);
+        const code = Math.random().toString(36).substring(2, 8);
+        document.getElementById('demo-short-url').textContent = window.location.origin + '/' + code;
+        document.getElementById('demo-result').style.display = 'block';
+      } catch(e) {
+        alert('Please enter a valid URL');
+      }
+    });
+  </script>
+</body>
+</html>
