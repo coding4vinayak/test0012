@@ -99,18 +99,40 @@ router.post('/:id', (req, res) => {
     });
   }
 
+  // Verify ownership through monitors table
+  const incident = db.prepare(`
+    SELECT i.id FROM incidents i
+    JOIN monitors m ON i.monitor_id = m.id
+    WHERE i.id = ? AND m.user_id = ?
+  `).get(req.params.id, req.session.user.id);
+
+  if (!incident) {
+    return res.redirect('/incidents');
+  }
+
   db.prepare(
     'UPDATE incidents SET title = ?, description = ?, status = ? WHERE id = ?'
-  ).run(title, description || '', status, req.params.id);
+  ).run(title, description || '', status, incident.id);
 
   res.redirect('/incidents');
 });
 
 // Resolve incident
 router.post('/:id/resolve', (req, res) => {
+  // Verify ownership through monitors table
+  const incident = db.prepare(`
+    SELECT i.id FROM incidents i
+    JOIN monitors m ON i.monitor_id = m.id
+    WHERE i.id = ? AND m.user_id = ?
+  `).get(req.params.id, req.session.user.id);
+
+  if (!incident) {
+    return res.redirect('/incidents');
+  }
+
   db.prepare(
     'UPDATE incidents SET status = ?, resolved_at = CURRENT_TIMESTAMP WHERE id = ?'
-  ).run('resolved', req.params.id);
+  ).run('resolved', incident.id);
 
   res.redirect('/incidents');
 });

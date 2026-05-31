@@ -204,8 +204,15 @@ router.get('/:id/pdf', (req, res) => {
 
 // Delete invoice
 router.post('/:id/delete', (req, res) => {
-  db.prepare('DELETE FROM invoice_items WHERE invoice_id = ?').run(req.params.id);
-  db.prepare('DELETE FROM invoices WHERE id = ? AND user_id = ?').run(req.params.id, req.session.user.id);
+  // Verify invoice belongs to user before deleting line items
+  const invoice = db.prepare('SELECT id FROM invoices WHERE id = ? AND user_id = ?')
+    .get(req.params.id, req.session.user.id);
+
+  if (invoice) {
+    db.prepare('DELETE FROM invoice_items WHERE invoice_id = ?').run(invoice.id);
+    db.prepare('DELETE FROM invoices WHERE id = ?').run(invoice.id);
+  }
+
   res.redirect('/invoices');
 });
 

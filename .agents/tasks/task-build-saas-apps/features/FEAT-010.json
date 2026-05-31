@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-010",
+  "type": "fix",
+  "description": "Address critical security issues found in code review: stored XSS, IDOR, missing ownership checks, raw JSON injection, and hardcoded session secret warnings.",
+  "status": "in_progress",
+  "steps": [
+    "Fix stored XSS in passive-saas/qr-code-generator/routes/track.js by HTML-escaping content before rendering",
+    "Fix IDOR in active-saas/invoice-billing/routes/invoices.js by verifying invoice ownership before deleting line items",
+    "Fix missing ownership checks in passive-saas/status-page/routes/incidents.js for update and resolve handlers",
+    "Fix raw JSON injection in active-saas/chatbot-builder/views/builder.ejs by safely serializing flows",
+    "Add warning log to all 8 server.js files when falling back to default session secret"
+  ],
+  "acceptance_criteria": [
+    "QR track route HTML-escapes content to prevent XSS",
+    "Invoice delete verifies ownership before deleting line items",
+    "Incident update and resolve check that incident belongs to user",
+    "Chatbot builder safely serializes JSON without script context escape",
+    "All 8 apps log a warning when using fallback session secret",
+    "All existing tests still pass"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/passive-saas/qr-code-generator && npm test",
+    "cd /projects/sandbox/test0012/active-saas/invoice-billing && npm test",
+    "cd /projects/sandbox/test0012/passive-saas/status-page && npm test",
+    "cd /projects/sandbox/test0012/active-saas/chatbot-builder && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": null
+}

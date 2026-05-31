@@ -89,8 +89,9 @@
 
   <script>
     var CHATBOT_ID = '<%= chatbot.id %>';
-    var FLOWS = <%- JSON.stringify(flows) %>;
+    var FLOWS = JSON.parse(document.getElementById('flows-data').textContent);
   </script>
+  <script type="application/json" id="flows-data"><%- JSON.stringify(flows).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026') %></script>
   <script src="/js/builder.js"></script>
 </body>
 </html>

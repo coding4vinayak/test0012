@@ -3,6 +3,16 @@ const db = require('../db/database');
 
 const router = express.Router();
 
+// HTML-escape to prevent XSS when rendering user content
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 // Track a scan and redirect to content
 router.get('/:id', (req, res) => {
   const qrCode = db.prepare('SELECT * FROM qr_codes WHERE id = ?').get(req.params.id);
@@ -28,14 +38,14 @@ router.get('/:id', (req, res) => {
     return res.redirect(301, url);
   }
 
-  // For non-URL types, show the content
+  // For non-URL types, show the content (HTML-escaped to prevent XSS)
   res.send(`
     <!DOCTYPE html>
     <html>
     <head><title>QR Code Content</title></head>
     <body>
       <h1>QR Code Content</h1>
-      <pre>${qrCode.content}</pre>
+      <pre>${escapeHtml(qrCode.content)}</pre>
     </body>
     </html>
   `);

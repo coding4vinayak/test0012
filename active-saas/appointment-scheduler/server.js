@@ -20,6 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+if (!process.env.SESSION_SECRET) {
+  console.warn('WARNING: SESSION_SECRET not set. Using default secret. Set SESSION_SECRET environment variable in production.');
+}
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'appointment-scheduler-secret-key',
   resave: false,
