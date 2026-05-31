@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Code Roaster - Get Your Code Brutally Roasted</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">&gt;_</span> Code Roaster
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Get Your Code <span class="highlight">Brutally Roasted</span></h1>
+    <p class="subtitle">Paste your code. Get a savage, hilarious review. Share your shame with the world.</p>
+  </header>
+
+  <main class="container">
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+
+    <section class="roast-form-section">
+      <form id="roast-form" class="code-form">
+        <div class="form-group">
+          <label for="language-select">Language</label>
+          <select id="language-select" name="language" class="language-selector">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="typescript">TypeScript</option>
+            <option value="cpp">C++</option>
+            <option value="csharp">C#</option>
+            <option value="ruby">Ruby</option>
+            <option value="go">Go</option>
+            <option value="rust">Rust</option>
+            <option value="php">PHP</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="code-input">Paste Your Code</label>
+          <div class="code-editor">
+            <div class="line-numbers" id="line-numbers">1</div>
+            <textarea id="code-input" name="code" class="code-textarea" placeholder="// Paste your code here and prepare to be roasted..." rows="15"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-roast">Roast My Code</button>
+      </form>
+    </section>
+
+    <section class="examples-section">
+      <h2>What You Get</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">F</div>
+          <h3>Variable Naming Crimes</h3>
+          <p>We expose your lazy single-letter variables and inconsistent naming conventions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">D</div>
+          <h3>Architecture Atrocities</h3>
+          <p>Your deeply nested spaghetti code gets the criticism it deserves.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">C</div>
+          <h3>Comment Catastrophes</h3>
+          <p>Whether you over-comment or never comment, we will call you out.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">A</div>
+          <h3>Shareable Report Card</h3>
+          <p>Get a code quality report card to share with your team (or enemies).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wall-section">
+      <h2>Hall of Shame</h2>
+      <div class="example-roasts">
+        <div class="example-card">
+          <div class="example-score">F</div>
+          <p>"Your variable names read like a cat walked across the keyboard."</p>
+          <span class="example-lang">JavaScript</span>
+        </div>
+        <div class="example-card">
+          <div class="example-score">D</div>
+          <p>"This nesting goes 8 levels deep. That is not code, that is an archaeological dig site."</p>
+          <span class="example-lang">Python</span>
+        </div>
+        <div class="example-card">
+          <div class="example-score">F</div>
+          <p>"Zero comments. You write code like you are keeping secrets from the FBI."</p>
+          <span class="example-lang">Java</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&gt;_ Code Roaster - Because your code deserves honest feedback (delivered savagely)</p>
+  </footer>
+
+  <div id="result-container" class="result-container hidden"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Roast Results - AI Code Roaster</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/"><span class="logo">&gt;_</span> Code Roaster</a>
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="container results-page">
+    <h1>Your Code Quality <span class="highlight">Report Card</span></h1>
+
+    <div class="scores-grid">
+      <div class="score-card">
+        <div class="score-grade grade-<%= roast.data.grades.readability.toLowerCase() %>"><%= roast.data.grades.readability %></div>
+        <div class="score-label">Readability</div>
+        <div class="score-value"><%= roast.data.scores.readability %>/10</div>
+      </div>
+      <div class="score-card">
+        <div class="score-grade grade-<%= roast.data.grades.efficiency.toLowerCase() %>"><%= roast.data.grades.efficiency %></div>
+        <div class="score-label">Efficiency</div>
+        <div class="score-value"><%= roast.data.scores.efficiency %>/10</div>
+      </div>
+      <div class="score-card">
+        <div class="score-grade grade-<%= roast.data.grades.style.toLowerCase() %>"><%= roast.data.grades.style %></div>
+        <div class="score-label">Style</div>
+        <div class="score-value"><%= roast.data.scores.style %>/10</div>
+      </div>
+      <div class="score-card overall">
+        <div class="score-grade grade-<%= roast.data.grades.overall.toLowerCase() %>"><%= roast.data.grades.overall %></div>
+        <div class="score-label">Overall</div>
+        <div class="score-value"><%= roast.data.scores.overall %>/10</div>
+      </div>
+    </div>
+
+    <div class="roast-sections">
+      <div class="roast-section">
+        <h3>Variable Naming Crimes <span class="section-grade grade-<%= roast.data.variableNaming.grade.toLowerCase() %>"><%= roast.data.variableNaming.grade %></span></h3>
+        <p><%= roast.data.variableNaming.comment %></p>
+      </div>
+      <div class="roast-section">
+        <h3>Architecture Atrocities <span class="section-grade grade-<%= roast.data.architecture.grade.toLowerCase() %>"><%= roast.data.architecture.grade %></span></h3>
+        <p><%= roast.data.architecture.comment %></p>
+      </div>
+      <div class="roast-section">
+        <h3>Comment Catastrophes <span class="section-grade grade-<%= roast.data.comments.grade.toLowerCase() %>"><%= roast.data.comments.grade %></span></h3>
+        <p><%= roast.data.comments.comment %></p>
+      </div>
+      <div class="roast-section verdict">
+        <h3>Overall Verdict</h3>
+        <p><%= roast.data.verdict %></p>
+      </div>
+    </div>
+
+    <div class="code-display">
+      <div class="code-header">
+        <span class="code-lang"><%= roast.language %></span>
+      </div>
+      <pre><code><%= roast.code_snippet %></code></pre>
+    </div>
+
+    <div class="share-actions">
+      <button class="btn btn-share" onclick="copyShareLink('<%= roast.share_id %>')">Copy Share Link</button>
+      <a href="https://twitter.com/intent/tweet?text=My%20code%20got%20a%20<%= roast.data.grades.overall %>%20grade%20on%20Code%20Roaster!%20%F0%9F%94%A5&url=<%= encodeURIComponent('https://coderoaster.app/roast/' + roast.share_id) %>" target="_blank" class="btn btn-twitter">Share on Twitter</a>
+      <a href="/" class="btn btn-roast">Roast More Code</a>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

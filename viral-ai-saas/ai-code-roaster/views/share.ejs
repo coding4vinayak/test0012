@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Roast Card - AI Code Roaster</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/"><span class="logo">&gt;_</span> Code Roaster</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">Roast Your Own Code</a>
+    </div>
+  </nav>
+
+  <main class="container share-page">
+    <div class="report-card">
+      <div class="report-header">
+        <h1>Code Quality <span class="highlight">Report Card</span></h1>
+        <span class="report-lang"><%= roast.language %></span>
+      </div>
+
+      <div class="scores-grid">
+        <div class="score-card">
+          <div class="score-grade grade-<%= roast.data.grades.readability.toLowerCase() %>"><%= roast.data.grades.readability %></div>
+          <div class="score-label">Readability</div>
+          <div class="score-value"><%= roast.data.scores.readability %>/10</div>
+        </div>
+        <div class="score-card">
+          <div class="score-grade grade-<%= roast.data.grades.efficiency.toLowerCase() %>"><%= roast.data.grades.efficiency %></div>
+          <div class="score-label">Efficiency</div>
+          <div class="score-value"><%= roast.data.scores.efficiency %>/10</div>
+        </div>
+        <div class="score-card">
+          <div class="score-grade grade-<%= roast.data.grades.style.toLowerCase() %>"><%= roast.data.grades.style %></div>
+          <div class="score-label">Style</div>
+          <div class="score-value"><%= roast.data.scores.style %>/10</div>
+        </div>
+        <div class="score-card overall">
+          <div class="score-grade grade-<%= roast.data.grades.overall.toLowerCase() %>"><%= roast.data.grades.overall %></div>
+          <div class="score-label">Overall</div>
+          <div class="score-value"><%= roast.data.scores.overall %>/10</div>
+        </div>
+      </div>
+
+      <div class="roast-sections">
+        <div class="roast-section">
+          <h3>Variable Naming Crimes <span class="section-grade grade-<%= roast.data.variableNaming.grade.toLowerCase() %>"><%= roast.data.variableNaming.grade %></span></h3>
+          <p><%= roast.data.variableNaming.comment %></p>
+        </div>
+        <div class="roast-section">
+          <h3>Architecture Atrocities <span class="section-grade grade-<%= roast.data.architecture.grade.toLowerCase() %>"><%= roast.data.architecture.grade %></span></h3>
+          <p><%= roast.data.architecture.comment %></p>
+        </div>
+        <div class="roast-section">
+          <h3>Comment Catastrophes <span class="section-grade grade-<%= roast.data.comments.grade.toLowerCase() %>"><%= roast.data.comments.grade %></span></h3>
+          <p><%= roast.data.comments.comment %></p>
+        </div>
+        <div class="roast-section verdict">
+          <h3>Overall Verdict</h3>
+          <p><%= roast.data.verdict %></p>
+        </div>
+      </div>
+
+      <div class="code-display">
+        <div class="code-header">
+          <span class="code-lang"><%= roast.language %></span>
+        </div>
+        <pre><code><%= roast.code_snippet %></code></pre>
+      </div>
+    </div>
+
+    <div class="share-cta">
+      <h2>Think you can do better?</h2>
+      <a href="/" class="btn btn-roast">Roast Your Own Code</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&gt;_ Code Roaster - Because your code deserves honest feedback (delivered savagely)</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Code Roaster</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/"><span class="logo">&gt;_</span> Code Roaster</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">Roast Code</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container dashboard-page">
+    <h1>Your Roast History</h1>
+
+    <% if (roasts.length === 0) { %>
+      <div class="empty-state">
+        <p>No roasts yet. Time to submit some code for judgment!</p>
+        <a href="/" class="btn btn-roast">Roast Some Code</a>
+      </div>
+    <% } else { %>
+      <div class="roast-history">
+        <% roasts.forEach(roast => { %>
+          <% const data = JSON.parse(roast.roast_text); %>
+          <div class="history-card">
+            <div class="history-header">
+              <span class="history-lang"><%= roast.language %></span>
+              <span class="history-date"><%= new Date(roast.created_at).toLocaleDateString() %></span>
+            </div>
+            <div class="history-scores">
+              <span class="history-grade grade-<%= data.grades.overall.toLowerCase() %>"><%= data.grades.overall %></span>
+              <span class="history-score">Overall: <%= roast.overall_score %>/10</span>
+            </div>
+            <div class="history-snippet"><code><%= roast.code_snippet.substring(0, 100) %>...</code></div>
+            <a href="/roast/<%= roast.share_id %>" class="btn btn-small">View Roast</a>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>

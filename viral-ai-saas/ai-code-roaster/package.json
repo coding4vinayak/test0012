@@ -1,0 +1,19 @@
+{
+  "name": "ai-code-roaster",
+  "version": "1.0.0",
+  "description": "AI Code Roaster - Paste your code and get a humorous roast of your code quality with shareable report cards",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/app.test.js"
+  },
+  "keywords": ["ai", "code", "roast", "humor", "developer", "saas"],
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.7.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.1"
+  }
+}
