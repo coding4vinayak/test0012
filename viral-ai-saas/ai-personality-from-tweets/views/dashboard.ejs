@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - TweetPersonality.AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">🧠 TweetPersonality.AI</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">New Analysis</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="dashboard-page">
+    <div class="dashboard-header">
+      <h1>Your Analysis History</h1>
+      <p>All your personality analyses in one place</p>
+    </div>
+
+    <div class="analyses-list">
+      <% if (analyses.length === 0) { %>
+        <div class="empty-state">
+          <p>No analyses yet. <a href="/">Analyze a Twitter handle</a> to get started!</p>
+        </div>
+      <% } else { %>
+        <% analyses.forEach(function(analysis) { %>
+          <div class="analysis-card">
+            <div class="analysis-header">
+              <span class="analysis-handle">@<%= analysis.twitter_handle %></span>
+              <span class="analysis-type"><%= analysis.personality_type %></span>
+            </div>
+            <div class="analysis-meta">
+              <span class="analysis-date"><%= new Date(analysis.created_at).toLocaleDateString() %></span>
+              <a href="/analyze/<%= analysis.share_id %>" class="btn btn-small">View Card</a>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>TweetPersonality.AI - For entertainment purposes only.</p>
+  </footer>
+</body>
+</html>

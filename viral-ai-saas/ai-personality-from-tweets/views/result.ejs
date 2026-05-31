@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@<%= result.handle %> - Personality Analysis</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">🧠 TweetPersonality.AI</a>
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="result-page">
+    <div class="personality-card">
+      <div class="card-header">
+        <div class="archetype-badge">
+          <span class="archetype-emoji"><%= result.archetype.emoji %></span>
+          <h1 class="archetype-name"><%= result.archetype.name %></h1>
+        </div>
+        <p class="handle-display">@<%= result.handle %></p>
+        <p class="archetype-description"><%= result.archetype.description %></p>
+      </div>
+
+      <div class="card-section traits-section">
+        <h2>Top Personality Traits</h2>
+        <div class="traits-list">
+          <% result.traits.forEach(function(trait) { %>
+            <div class="trait-item">
+              <div class="trait-header">
+                <span class="trait-name"><%= trait.name %></span>
+                <span class="trait-percent"><%= trait.percentage %>%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= trait.percentage %>%"></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="card-section style-section">
+        <h2>Writing Style</h2>
+        <blockquote class="writing-style-quote">
+          "<%= result.writingStyle %>"
+        </blockquote>
+      </div>
+
+      <div class="card-section vibe-section">
+        <h2>Vibe Check</h2>
+        <p class="vibe-text"><%= result.vibeSummary %></p>
+      </div>
+
+      <div class="card-section interests-section">
+        <h2>Predicted Interests</h2>
+        <div class="interests-tags">
+          <% result.interests.forEach(function(interest) { %>
+            <span class="interest-tag"><%= interest %></span>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="card-section scores-section">
+        <h2>Scores</h2>
+        <div class="scores-grid">
+          <div class="score-item">
+            <div class="score-circle" data-score="<%= result.scores.humor %>">
+              <span class="score-value"><%= result.scores.humor %></span>
+            </div>
+            <span class="score-label">Humor</span>
+          </div>
+          <div class="score-item">
+            <div class="score-circle" data-score="<%= result.scores.intelligence %>">
+              <span class="score-value"><%= result.scores.intelligence %></span>
+            </div>
+            <span class="score-label">Intelligence</span>
+          </div>
+          <div class="score-item">
+            <div class="score-circle" data-score="<%= result.scores.toxicity %>">
+              <span class="score-value"><%= result.scores.toxicity %></span>
+            </div>
+            <span class="score-label">Toxicity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section share-section">
+        <h2>Share Your Results</h2>
+        <div class="share-buttons">
+          <a href="https://twitter.com/intent/tweet?text=I%20just%20got%20analyzed%20by%20TweetPersonality.AI%20and%20I%27m%20%22<%= encodeURIComponent(result.archetype.name) %>%22%20<%= result.archetype.emoji %>&url=<%= encodeURIComponent('https://tweetpersonality.ai/analyze/' + result.shareId) %>" target="_blank" class="btn btn-twitter">Share on Twitter</a>
+          <button class="btn btn-copy" onclick="copyShareLink()">Copy Link</button>
+        </div>
+        <input type="hidden" id="share-url" value="/analyze/<%= result.shareId %>">
+      </div>
+    </div>
+
+    <div class="try-another">
+      <a href="/" class="btn btn-secondary">Analyze Another Handle</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>TweetPersonality.AI - For entertainment purposes only.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

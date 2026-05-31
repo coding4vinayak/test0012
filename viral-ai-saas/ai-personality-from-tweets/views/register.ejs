@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - TweetPersonality.AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">🧠 TweetPersonality.AI</a>
+    </div>
+    <div class="nav-links">
+      <a href="/auth/login">Login</a>
+    </div>
+  </nav>
+
+  <main class="auth-page">
+    <div class="auth-card">
+      <h1>Create Account</h1>
+      <p>Sign up to save your personality analyses</p>
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <form action="/auth/register" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters">
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+      </form>
+
+      <p class="auth-link">Already have an account? <a href="/auth/login">Sign in</a></p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>TweetPersonality.AI - For entertainment purposes only.</p>
+  </footer>
+</body>
+</html>

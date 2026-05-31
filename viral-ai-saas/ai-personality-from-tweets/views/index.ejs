@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Personality from Tweets - Discover Your Twitter Personality</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">🧠 TweetPersonality.AI</a>
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="hero">
+    <div class="hero-content">
+      <h1>What Does Your Twitter Say About You? 🐦</h1>
+      <p class="hero-subtitle">Enter any Twitter/X handle and our AI will analyze their digital personality. Get a shareable personality card in seconds.</p>
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <form id="analyze-form" class="analyze-form" action="/analyze/generate" method="POST">
+        <div class="input-group">
+          <span class="input-prefix">@</span>
+          <input type="text" id="handle-input" name="handle" placeholder="username" required autocomplete="off">
+          <button type="submit" class="btn btn-primary">Analyze Me</button>
+        </div>
+      </form>
+
+      <p class="disclaimer">*No actual tweets are read. Personality is generated for entertainment only.</p>
+    </div>
+
+    <section class="example-cards">
+      <h2>Example Personality Cards</h2>
+      <div class="cards-grid">
+        <div class="example-card">
+          <div class="card-archetype">🔥 The Hot Take Artist</div>
+          <div class="card-traits">
+            <span class="trait-tag">Main Character Energy 92%</span>
+            <span class="trait-tag">Unhinged Creativity 87%</span>
+          </div>
+          <div class="card-vibe">"You tweet like someone who peaked in group chats."</div>
+        </div>
+        <div class="example-card">
+          <div class="card-archetype">🧵 The Thread Lord</div>
+          <div class="card-traits">
+            <span class="trait-tag">Overthinks Everything 95%</span>
+            <span class="trait-tag">Professional Yapper 88%</span>
+          </div>
+          <div class="card-vibe">"Your timeline reads like a cry for help disguised as comedy."</div>
+        </div>
+        <div class="example-card">
+          <div class="card-archetype">👻 The Lurker Who Snapped</div>
+          <div class="card-traits">
+            <span class="trait-tag">Chaotic Neutral 90%</span>
+            <span class="trait-tag">Self-Aware Disaster 85%</span>
+          </div>
+          <div class="card-vibe">"You give off 'has 47 draft tweets' energy."</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <h2>What People Are Saying</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <p>"I feel personally attacked by how accurate this is."</p>
+          <span class="testimonial-author">- @definitely_real_user</span>
+        </div>
+        <div class="testimonial">
+          <p>"Shared my personality card and it went viral in my group chat."</p>
+          <span class="testimonial-author">- @tweet_enthusiast</span>
+        </div>
+        <div class="testimonial">
+          <p>"The vibe check called me out harder than my therapist."</p>
+          <span class="testimonial-author">- @internet_person</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>TweetPersonality.AI - For entertainment purposes only. We do not actually read your tweets.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

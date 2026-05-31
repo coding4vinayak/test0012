@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@<%= analysis.twitter_handle %> - Personality Card</title>
+  <meta property="og:title" content="@<%= analysis.twitter_handle %> is '<%= analysis.personality_type %>'">
+  <meta property="og:description" content="<%= analysis.vibe_summary %>">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">🧠 TweetPersonality.AI</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">Analyze Yourself</a>
+    </div>
+  </nav>
+
+  <main class="share-page">
+    <div class="share-card">
+      <div class="card-header">
+        <div class="archetype-badge">
+          <span class="archetype-emoji"><%= analysis.archetype.emoji %></span>
+          <h1 class="archetype-name"><%= analysis.personality_type %></h1>
+        </div>
+        <p class="handle-display">@<%= analysis.twitter_handle %></p>
+      </div>
+
+      <div class="card-section traits-section">
+        <h2>Personality Traits</h2>
+        <div class="traits-list">
+          <% analysis.traits.forEach(function(trait) { %>
+            <div class="trait-item">
+              <div class="trait-header">
+                <span class="trait-name"><%= trait.name %></span>
+                <span class="trait-percent"><%= trait.percentage %>%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= trait.percentage %>%"></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="card-section vibe-section">
+        <h2>Vibe Check</h2>
+        <p class="vibe-text"><%= analysis.vibe_summary %></p>
+      </div>
+
+      <div class="card-section interests-section">
+        <h2>Predicted Interests</h2>
+        <div class="interests-tags">
+          <% analysis.interests.forEach(function(interest) { %>
+            <span class="interest-tag"><%= interest %></span>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="card-section scores-section">
+        <h2>Scores</h2>
+        <div class="scores-grid">
+          <div class="score-item">
+            <div class="score-circle">
+              <span class="score-value"><%= analysis.humor_score %></span>
+            </div>
+            <span class="score-label">Humor</span>
+          </div>
+          <div class="score-item">
+            <div class="score-circle">
+              <span class="score-value"><%= analysis.intelligence_score %></span>
+            </div>
+            <span class="score-label">Intelligence</span>
+          </div>
+          <div class="score-item">
+            <div class="score-circle">
+              <span class="score-value"><%= analysis.toxicity_score %></span>
+            </div>
+            <span class="score-label">Toxicity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <h3>Want to discover your Twitter personality?</h3>
+        <a href="/" class="btn btn-primary btn-large">Analyze Your Handle</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>TweetPersonality.AI - For entertainment purposes only.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
