@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Roast My Website</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">Roast My Website</a>
+    <div class="nav-links">
+      <a href="/">Roast Another</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <h1>Your Roast History</h1>
+    <p class="dashboard-subtitle">A collection of digital carnage</p>
+
+    <% if (roasts.length === 0) { %>
+      <div class="empty-state">
+        <p>No roasts yet. Go roast a website!</p>
+        <a href="/" class="roast-btn">Start Roasting</a>
+      </div>
+    <% } else { %>
+      <div class="roast-history">
+        <% roasts.forEach(function(roast) { %>
+          <div class="history-card">
+            <div class="history-url"><%= roast.url %></div>
+            <div class="history-scores">
+              <span class="score-badge">Design: <%= roast.design_score %>/10</span>
+              <span class="score-badge">Copy: <%= roast.copy_score %>/10</span>
+              <span class="score-badge">UX: <%= roast.ux_score %>/10</span>
+              <span class="score-badge overall">Overall: <%= roast.overall_score %>/10</span>
+            </div>
+            <div class="history-actions">
+              <a href="/roast/<%= roast.share_id %>" class="view-btn">View Roast</a>
+              <span class="history-date"><%= new Date(roast.created_at).toLocaleDateString() %></span>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Roast My Website - Get Brutally Honest Feedback</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Roast My Website</div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Get Your Website <span class="neon-text">Brutally Roasted</span></h1>
+      <p class="hero-subtitle">Paste your URL and our AI will deliver a hilariously honest critique of your design, copy, and UX. No feelings spared.</p>
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <form class="roast-form" id="roast-form">
+        <div class="input-group">
+          <input type="text" id="url-input" name="url" placeholder="https://your-website.com" required class="url-input">
+          <button type="submit" class="roast-btn">Roast It</button>
+        </div>
+      </form>
+
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Analyzing your website with zero mercy...</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="result-container" class="hidden"></div>
+
+  <section class="features">
+    <h2>What You Get</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F3A8;</div>
+        <h3>Design Disaster Score</h3>
+        <p>We rate your visual choices on a scale of "minimalist genius" to "absolute chaos."</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x270D;</div>
+        <h3>Copy Catastrophe Score</h3>
+        <p>Your words will be judged. Harshly. Is your copy compelling or cringe?</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F5B1;</div>
+        <h3>UX Nightmare Score</h3>
+        <p>Can users actually navigate your site, or is it a digital escape room?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="social-proof">
+    <h2>Wall of Shame</h2>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <p class="quote">"I showed this to my designer and they quit. 10/10 would roast again."</p>
+        <p class="author">- A former startup founder</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="quote">"The AI was more honest than any feedback I have ever gotten from my team."</p>
+        <p class="author">- Someone who needed to hear the truth</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="quote">"My website got a 2/10. I have never been more motivated to redesign."</p>
+        <p class="author">- A humbled developer</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>AI Roast My Website - No feelings were considered in the making of these roasts.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

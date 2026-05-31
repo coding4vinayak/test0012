@@ -1,0 +1,26 @@
+{
+  "project_type": "Node.js Express monorepo with multiple standalone SaaS apps",
+  "language": "JavaScript (Node.js)",
+  "build_system": "npm per-app (each app has its own package.json)",
+  "test_framework": "Node.js built-in test runner (node --test tests/app.test.js)",
+  "build_command": "npm install (per app directory)",
+  "test_command": "npm test (per app directory, runs node --test tests/app.test.js)",
+  "verification_instructions": "cd into each app directory, run npm install, then npm test. All tests should pass.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "cd <app-dir> && npm install && npm start",
+  "environment_constraints": "OPEN_INTERNET network mode. Node.js v22 available. No external AI API keys available - use mock/simulated AI responses (following existing pattern in ai-content-generator).",
+  "contribution_requirements": "Each app is fully self-contained with its own package.json, server.js, db/, routes/, views/, public/, tests/. Uses SQLite via better-sqlite3, EJS templating, bcrypt+express-session auth.",
+  "key_patterns": "1) server.js exports {app, db} and only starts listening when NODE_ENV !== 'test'. 2) DB uses better-sqlite3 with DB_PATH env var (':memory:' for tests). 3) Tests use Node.js built-in test runner with http module for requests. 4) Auth via express-session with bcrypt hashing. 5) Views use EJS with inline CSS classes. 6) Mock AI generation (no real API calls). 7) Each app runs on its own port.",
+  "relevant_files": [
+    "active-saas/ai-content-generator/server.js",
+    "active-saas/ai-content-generator/routes/content.js",
+    "active-saas/ai-content-generator/routes/auth.js",
+    "active-saas/ai-content-generator/db/database.js",
+    "active-saas/ai-content-generator/db/schema.sql",
+    "active-saas/ai-content-generator/tests/app.test.js",
+    "active-saas/ai-content-generator/package.json",
+    "active-saas/ai-content-generator/views/index.ejs",
+    "active-saas/ai-content-generator/public/css/style.css"
+  ],
+  "directory_structure": "Root has active-saas/ and passive-saas/ folders. New apps go in viral-ai-saas/ top-level folder. Each app has: server.js, package.json, db/ (database.js, schema.sql), routes/, views/, public/css/, public/js/, tests/app.test.js, README.md, .gitignore"
+}

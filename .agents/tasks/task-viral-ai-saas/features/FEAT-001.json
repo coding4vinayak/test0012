@@ -1,0 +1,40 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Build AI Roast My Website - a viral micro-SaaS that lets users paste a URL and get a brutally honest, humorous roast of their website's design, copy, and UX. Generates shareable roast cards with scores.",
+  "status": "completed",
+  "steps": [
+    "Create directory viral-ai-saas/ai-roast-my-website/ with standard structure: server.js, package.json, db/, routes/, views/, public/css/, public/js/, tests/, README.md, .gitignore",
+    "Create package.json with dependencies: express, ejs, better-sqlite3, bcrypt, express-session. Scripts: start (node server.js), test (node --test tests/app.test.js)",
+    "Create db/schema.sql with tables: users (id, email, password_hash, created_at), roasts (id, user_id nullable, url, design_score, copy_score, ux_score, overall_score, roast_text, share_id unique, created_at)",
+    "Create db/database.js following the pattern from ai-content-generator (better-sqlite3, DB_PATH env, WAL mode, schema init)",
+    "Create routes/auth.js with login/register/logout routes following the existing pattern",
+    "Create routes/roast.js with: POST /roast/generate (accepts URL, generates mock AI roast with scores 1-10 for design/copy/UX, funny critique text, saves to DB with unique share_id), GET /roast/:shareId (public shareable roast card page)",
+    "The mock AI roast generator should produce varied, humorous critiques based on URL characteristics (domain name, TLD, etc). Include categories: Design Disaster, Copy Catastrophe, UX Nightmare, Overall Verdict. Each with a witty one-liner and detailed roast paragraph.",
+    "Create views/index.ejs - stunning landing page with gradient hero, URL input form, example roast cards, social proof. Dark theme with neon accents for edgy viral feel.",
+    "Create views/result.ejs - roast results page showing scores as animated gauges/meters, roast text with sections, share buttons (Twitter, LinkedIn, copy link), download as image button",
+    "Create views/share.ejs - public shareable page showing the roast card (works without auth), with CTA to roast your own website",
+    "Create views/login.ejs and views/register.ejs following auth pattern",
+    "Create views/dashboard.ejs showing user's roast history",
+    "Create public/css/style.css with dark theme, neon gradient accents, animated score meters, card styling optimized for screenshots",
+    "Create public/js/app.js with form submission handling, score animations, share functionality (copy to clipboard, Twitter intent URL), and client-side image generation for download",
+    "Create server.js following the pattern: EJS views, middleware, session, routes, conditional listen",
+    "Create tests/app.test.js with comprehensive tests: server startup, landing page, auth flow (register, login, reject duplicates), roast generation (valid URL, missing URL, scores in valid range), share page access, roast history",
+    "Create README.md with app description, features, setup instructions, and tech stack"
+  ],
+  "acceptance_criteria": [
+    "npm install completes successfully",
+    "npm test passes all tests",
+    "Landing page renders with URL input form",
+    "Submitting a URL returns a roast with design/copy/UX scores (1-10)",
+    "Each roast gets a unique shareable link",
+    "Share page is accessible without authentication",
+    "Auth flow works (register, login, logout)",
+    "Dashboard shows user's roast history"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/viral-ai-saas/ai-roast-my-website && npm install && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": "All 22 tests pass. App created at viral-ai-saas/ai-roast-my-website/ with full auth, roast generation, shareable roast cards, and dashboard. Mock AI generates varied roasts based on URL characteristics. No external API calls needed."
+}

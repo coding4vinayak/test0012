@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Results - AI Roast My Website</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">Roast My Website</a>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <div class="result-page">
+    <h1>The Verdict Is In</h1>
+    <p class="roasted-url">Roasting: <strong><%= roast.url %></strong></p>
+
+    <div class="scores-grid">
+      <div class="score-card">
+        <h3>Design</h3>
+        <div class="score-meter" data-score="<%= roast.data.design.score %>">
+          <span class="score-value"><%= roast.data.design.score %>/10</span>
+        </div>
+        <p class="score-liner"><%= roast.data.design.oneLiner %></p>
+        <p class="score-detail"><%= roast.data.design.detail %></p>
+      </div>
+
+      <div class="score-card">
+        <h3>Copy</h3>
+        <div class="score-meter" data-score="<%= roast.data.copy.score %>">
+          <span class="score-value"><%= roast.data.copy.score %>/10</span>
+        </div>
+        <p class="score-liner"><%= roast.data.copy.oneLiner %></p>
+        <p class="score-detail"><%= roast.data.copy.detail %></p>
+      </div>
+
+      <div class="score-card">
+        <h3>UX</h3>
+        <div class="score-meter" data-score="<%= roast.data.ux.score %>">
+          <span class="score-value"><%= roast.data.ux.score %>/10</span>
+        </div>
+        <p class="score-liner"><%= roast.data.ux.oneLiner %></p>
+        <p class="score-detail"><%= roast.data.ux.detail %></p>
+      </div>
+    </div>
+
+    <div class="overall-verdict">
+      <h2>Overall Score: <%= roast.data.overall.score %>/10</h2>
+      <p><%= roast.data.overall.verdict %></p>
+    </div>
+
+    <div class="share-section">
+      <h3>Share Your Shame</h3>
+      <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text=My%20website%20just%20got%20roasted%20and%20scored%20<%= roast.data.overall.score %>/10%20%F0%9F%94%A5&url=<%= encodeURIComponent('') %>/roast/<%= roast.share_id %>" target="_blank" class="share-btn twitter-btn">Share on Twitter</a>
+        <button class="share-btn copy-btn" data-url="/roast/<%= roast.share_id %>">Copy Link</button>
+      </div>
+    </div>
+
+    <a href="/" class="roast-another-btn">Roast Another Website</a>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

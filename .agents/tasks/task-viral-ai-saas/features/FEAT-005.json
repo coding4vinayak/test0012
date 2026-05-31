@@ -1,0 +1,38 @@
+{
+  "id": "FEAT-005",
+  "type": "feat",
+  "description": "Build AI Startup Idea Generator - generate wild but plausible startup ideas with fake pitch decks, valuations, investor feedback, and team suggestions. People love sharing absurd startup concepts on social media.",
+  "status": "pending",
+  "steps": [
+    "Create directory viral-ai-saas/ai-startup-idea-generator/ with standard structure: server.js, package.json, db/, routes/, views/, public/css/, public/js/, tests/, README.md, .gitignore",
+    "Create package.json with dependencies: express, ejs, better-sqlite3, bcrypt, express-session",
+    "Create db/schema.sql with tables: users (id, email, password_hash, created_at), ideas (id, user_id nullable, industry, vibe, startup_name, tagline, description, valuation, investor_feedback, team_roles JSON text, market_size, absurdity_score, viability_score, share_id unique, created_at)",
+    "Create db/database.js following standard pattern",
+    "Create routes/auth.js with standard auth routes",
+    "Create routes/idea.js with: POST /idea/generate (accepts optional industry preference and 'vibe' like serious/absurd/moonshot, generates mock startup idea with name, tagline, elevator pitch, fake valuation, mock investor quotes, suggested team roles, market size estimate), GET /idea/:shareId (public shareable startup idea card)",
+    "The mock startup generator should combine random industry verticals (e.g., 'AI + Pets', 'Blockchain + Grandmas', 'AR + Plumbing') to create funny but plausible startup concepts. Include: Startup Name (creative portmanteau), One-line tagline, 2-paragraph elevator pitch, Fake valuation ($X million Series A), 3 mock investor quotes (mix of enthusiastic and skeptical), Suggested founding team (4 absurd C-suite titles), Total Addressable Market estimate.",
+    "Create views/index.ejs - startup/VC-inspired landing page with industry selector, vibe toggle (serious/absurd/moonshot), prominent generate button, showcase of example generated ideas, Silicon Valley aesthetic with clean white design and accent colors",
+    "Create views/result.ejs - startup idea presented as a mini pitch deck: company name and logo placeholder, tagline, elevator pitch section, valuation in big bold numbers, investor quotes in card format, team section with role cards, market size visualization. Share buttons.",
+    "Create views/share.ejs - public shareable startup card that looks like a condensed pitch deck slide, with CTA to generate your own",
+    "Create views/login.ejs, views/register.ejs, views/dashboard.ejs",
+    "Create public/css/style.css with clean startup/VC aesthetic - white backgrounds, bold typography, accent colors, card-based layout, professional but playful",
+    "Create public/js/app.js with industry/vibe selection, form submission, share functionality, copy-to-clipboard for elevator pitch",
+    "Create server.js following standard pattern",
+    "Create tests/app.test.js with tests: server startup, landing page, auth flow, idea generation (with industry, without industry, different vibes), share page, valuation format validation, history",
+    "Create README.md"
+  ],
+  "acceptance_criteria": [
+    "npm install completes successfully",
+    "npm test passes all tests",
+    "Landing page renders with industry selector and vibe toggle",
+    "Generating returns a full startup idea with name, tagline, pitch, valuation, investor quotes, team",
+    "Different vibes produce appropriately toned results",
+    "Shareable link works publicly",
+    "Auth and dashboard work correctly"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/viral-ai-saas/ai-startup-idea-generator && npm install && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

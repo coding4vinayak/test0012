@@ -1,0 +1,39 @@
+{
+  "id": "FEAT-006",
+  "type": "feat",
+  "description": "Build AI Roast My Resume - upload/paste resume text and get a brutally honest but constructive roast of your resume with scores, section-by-section feedback, and a shareable 'resume score card'. Job seekers love sharing these.",
+  "status": "pending",
+  "steps": [
+    "Create directory viral-ai-saas/ai-roast-my-resume/ with standard structure: server.js, package.json, db/, routes/, views/, public/css/, public/js/, tests/, README.md, .gitignore",
+    "Create package.json with dependencies: express, ejs, better-sqlite3, bcrypt, express-session",
+    "Create db/schema.sql with tables: users (id, email, password_hash, created_at), roasts (id, user_id nullable, resume_text, overall_score, impact_score, clarity_score, buzzword_score, cringe_score, roast_text, recommendations JSON text, share_id unique, created_at)",
+    "Create db/database.js following standard pattern",
+    "Create routes/auth.js with standard auth routes",
+    "Create routes/roast.js with: POST /roast/generate (accepts resume text, generates mock AI resume roast with scores for impact/clarity/buzzword-density/cringe-factor, section roasts for Experience/Skills/Education/Summary, actionable recommendations, overall verdict), GET /roast/:shareId (public shareable resume score card)",
+    "The mock resume roaster should analyze text characteristics: word count, buzzword detection (synergy, leverage, passionate, etc.), action verb usage, quantification presence (numbers/percentages), length assessment. Produce sections: First Impression (one brutal sentence), Buzzword Bingo (count and mock overused words), Impact Check (do bullets show results?), Cringe Meter (rate pretentiousness), The Verdict (overall assessment with humor). Include 3 actionable recommendations.",
+    "Create views/index.ejs - professional but edgy landing page with large textarea for resume paste, example score cards, stats about resumes roasted, gradient from navy to purple",
+    "Create views/result.ejs - resume roast results: overall score prominently displayed as letter grade, individual scores as horizontal bar charts, section-by-section roast with expandable details, recommendations in callout boxes, share buttons, 'Roast Another Resume' button",
+    "Create views/share.ejs - public shareable resume score card showing grades and overall verdict, with CTA",
+    "Create views/login.ejs, views/register.ejs, views/dashboard.ejs",
+    "Create public/css/style.css with professional-meets-edgy design - dark navy/purple gradients, clean typography, bar chart styling, grade badges (A-F with colors), expandable sections",
+    "Create public/js/app.js with textarea character count, form submission, expandable sections toggle, share functionality, animated score bars",
+    "Create server.js following standard pattern",
+    "Create tests/app.test.js with tests: server startup, landing page, auth flow, resume roast generation (valid resume text, empty text, short text warning), score ranges (1-10), buzzword detection works, share page access, history",
+    "Create README.md"
+  ],
+  "acceptance_criteria": [
+    "npm install completes successfully",
+    "npm test passes all tests",
+    "Landing page renders with resume text input",
+    "Submitting resume text returns roast with impact/clarity/buzzword/cringe scores",
+    "Roast includes section-by-section feedback and recommendations",
+    "Buzzword detection identifies common resume buzzwords",
+    "Shareable link displays score card publicly",
+    "Auth and dashboard work correctly"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/viral-ai-saas/ai-roast-my-resume && npm install && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

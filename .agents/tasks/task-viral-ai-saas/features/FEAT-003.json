@@ -1,0 +1,38 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Build AI Code Roaster - paste code and get a humorous roast of your code quality with a shareable 'code quality score' card. Developers love sharing these on Twitter.",
+  "status": "pending",
+  "steps": [
+    "Create directory viral-ai-saas/ai-code-roaster/ with standard structure: server.js, package.json, db/, routes/, views/, public/css/, public/js/, tests/, README.md, .gitignore",
+    "Create package.json with dependencies: express, ejs, better-sqlite3, bcrypt, express-session",
+    "Create db/schema.sql with tables: users (id, email, password_hash, created_at), roasts (id, user_id nullable, code_snippet, language, readability_score, efficiency_score, style_score, overall_score, roast_text, share_id unique, created_at)",
+    "Create db/database.js following standard pattern",
+    "Create routes/auth.js with standard auth routes",
+    "Create routes/roast.js with: POST /roast/generate (accepts code snippet and language, generates mock AI code roast with scores for readability/efficiency/style/overall 1-10, funny roast comments per category), GET /roast/:shareId (public shareable code roast card)",
+    "The mock code roaster should analyze basic code characteristics (length, nesting depth via brace counting, variable naming patterns, comment ratio) to produce somewhat-relevant roasts. Include sections: Variable Naming Crimes, Architecture Atrocities, Comment Catastrophes, Overall Verdict. Each with grade (A-F) and witty commentary.",
+    "Create views/index.ejs - developer-focused landing page with code editor-style input (monospace, dark theme textarea with line numbers feel), language selector dropdown, example roasts, GitHub-inspired aesthetic",
+    "Create views/result.ejs - roast results with code snippet displayed in syntax-highlighted style, scores as letter grades (A-F) in badge cards, detailed roast text sections, share buttons, 'Roast More Code' button",
+    "Create views/share.ejs - public shareable code roast card, styled like a report card for code, with CTA",
+    "Create views/login.ejs, views/register.ejs, views/dashboard.ejs",
+    "Create public/css/style.css with developer/hacker theme - dark background, green/cyan terminal-style accents, monospace fonts for code, card-based score display",
+    "Create public/js/app.js with code input handling (tab support in textarea), form submission, share functionality, syntax highlighting basic support",
+    "Create server.js following standard pattern",
+    "Create tests/app.test.js with tests: server startup, landing page, auth flow, code roast generation (valid code input, missing code, different languages), score validation (1-10 range), share page access, history",
+    "Create README.md"
+  ],
+  "acceptance_criteria": [
+    "npm install completes successfully",
+    "npm test passes all tests",
+    "Landing page renders with code input textarea and language selector",
+    "Submitting code returns a roast with readability/efficiency/style/overall scores",
+    "Roast text includes categorized humorous commentary",
+    "Shareable link displays the roast card publicly",
+    "Auth and dashboard work correctly"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/viral-ai-saas/ai-code-roaster && npm install && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
