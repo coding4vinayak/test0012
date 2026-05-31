@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="dashboard-header">
+      <h1>Dashboard</h1>
+      <div class="dashboard-actions">
+        <a href="/monitors/new" class="btn btn-primary">Add Monitor</a>
+        <a href="/status/pages/new" class="btn btn-secondary">Create Status Page</a>
+      </div>
+    </div>
+
+    <section class="monitors-section">
+      <h2>Monitors</h2>
+      <div id="monitors-list" class="monitors-grid">
+        <% if (monitors.length === 0) { %>
+          <p class="empty-state">No monitors yet. <a href="/monitors/new">Add your first monitor</a></p>
+        <% } else { %>
+          <% monitors.forEach(m => { %>
+            <div class="monitor-card status-<%= m.status %>">
+              <div class="monitor-header">
+                <span class="status-indicator status-<%= m.status %>"></span>
+                <h3><%= m.name %></h3>
+              </div>
+              <p class="monitor-url"><%= m.url %></p>
+              <div class="monitor-stats">
+                <div class="stat">
+                  <span class="stat-label">Uptime</span>
+                  <span class="stat-value"><%= m.uptime_percent %><% if (m.uptime_percent !== 'N/A') { %>%<% } %></span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Avg Response</span>
+                  <span class="stat-value"><%= m.avg_response_time %><% if (m.avg_response_time !== 'N/A') { %>ms<% } %></span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Status</span>
+                  <span class="stat-value status-text-<%= m.status %>"><%= m.status %></span>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    </section>
+
+    <section class="status-pages-section">
+      <h2>Status Pages</h2>
+      <% if (statusPages.length === 0) { %>
+        <p class="empty-state">No status pages yet. <a href="/status/pages/new">Create one</a></p>
+      <% } else { %>
+        <div class="status-pages-list">
+          <% statusPages.forEach(sp => { %>
+            <div class="status-page-card">
+              <h3><%= sp.title %></h3>
+              <p class="slug">Public URL: <a href="/status/<%= sp.slug %>">/status/<%= sp.slug %></a></p>
+              <div class="card-actions">
+                <a href="/status/pages/<%= sp.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form method="POST" action="/status/pages/<%= sp.id %>/delete" style="display:inline;">
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+  </div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

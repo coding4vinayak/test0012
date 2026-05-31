@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= monitor ? 'Edit' : 'New' %> Monitor - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><%= monitor ? 'Edit' : 'New' %> Monitor</h1>
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    <form method="POST" action="<%= monitor ? '/monitors/' + monitor.id : '/monitors' %>" class="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="<%= monitor ? monitor.name : '' %>" required placeholder="My API Server">
+      </div>
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="url" id="url" name="url" value="<%= monitor ? monitor.url : '' %>" required placeholder="https://api.example.com/health">
+      </div>
+      <div class="form-group">
+        <label for="check_interval_seconds">Check Interval (seconds)</label>
+        <input type="number" id="check_interval_seconds" name="check_interval_seconds" value="<%= monitor ? monitor.check_interval_seconds : 300 %>" min="60" max="3600">
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= monitor ? 'Update' : 'Create' %> Monitor</button>
+        <a href="/monitors" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

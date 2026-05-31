@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= incident ? 'Edit' : 'New' %> Incident - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><%= incident ? 'Edit' : 'Report' %> Incident</h1>
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    <form method="POST" action="<%= incident ? '/incidents/' + incident.id : '/incidents' %>" class="form">
+      <% if (!incident) { %>
+        <div class="form-group">
+          <label for="monitor_id">Affected Monitor</label>
+          <select id="monitor_id" name="monitor_id" required>
+            <option value="">Select a monitor</option>
+            <% monitors.forEach(m => { %>
+              <option value="<%= m.id %>"><%= m.name %></option>
+            <% }) %>
+          </select>
+        </div>
+      <% } %>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="<%= incident ? incident.title : '' %>" required placeholder="API endpoint unavailable">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" placeholder="Describe the incident..."><%= incident ? incident.description : '' %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="investigating" <%= incident && incident.status === 'investigating' ? 'selected' : '' %>>Investigating</option>
+          <option value="identified" <%= incident && incident.status === 'identified' ? 'selected' : '' %>>Identified</option>
+          <option value="monitoring" <%= incident && incident.status === 'monitoring' ? 'selected' : '' %>>Monitoring</option>
+          <option value="resolved" <%= incident && incident.status === 'resolved' ? 'selected' : '' %>>Resolved</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= incident ? 'Update' : 'Create' %> Incident</button>
+        <a href="/incidents" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

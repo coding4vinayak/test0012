@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page.title %> - Status</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="public-page theme-<%= page.theme %>">
+  <div class="status-page-container">
+    <header class="status-header">
+      <h1><%= page.title %></h1>
+      <% if (page.description) { %>
+        <p class="status-description"><%= page.description %></p>
+      <% } %>
+      <% 
+        const allUp = monitors.length > 0 && monitors.every(m => m.status === 'up');
+        const anyDown = monitors.some(m => m.status === 'down');
+        const overallStatus = monitors.length === 0 ? 'unknown' : allUp ? 'up' : anyDown ? 'down' : 'degraded';
+      %>
+      <div class="overall-status overall-<%= overallStatus %>">
+        <% if (overallStatus === 'up') { %>
+          All Systems Operational
+        <% } else if (overallStatus === 'down') { %>
+          Some Systems Are Down
+        <% } else if (overallStatus === 'degraded') { %>
+          Partial System Outage
+        <% } else { %>
+          No Monitors Configured
+        <% } %>
+      </div>
+    </header>
+
+    <section class="monitors-status-list">
+      <% monitors.forEach(m => { %>
+        <div class="monitor-status-row">
+          <div class="monitor-status-info">
+            <span class="status-indicator status-<%= m.status %>"></span>
+            <span class="monitor-name"><%= m.name %></span>
+            <span class="monitor-uptime"><%= m.uptime_percent %><% if (m.uptime_percent !== 'N/A') { %>% uptime<% } %></span>
+          </div>
+          <div class="uptime-bar">
+            <% m.daily_status.forEach(day => { %>
+              <div class="uptime-day day-<%= day %>" title="<%= day %>"></div>
+            <% }) %>
+          </div>
+          <div class="uptime-bar-labels">
+            <span>30 days ago</span>
+            <span>Today</span>
+          </div>
+        </div>
+      <% }) %>
+    </section>
+
+    <% if (incidents.length > 0) { %>
+      <section class="incidents-history">
+        <h2>Recent Incidents</h2>
+        <% incidents.forEach(i => { %>
+          <div class="incident-card incident-<%= i.status %>">
+            <div class="incident-header">
+              <h3><%= i.title %></h3>
+              <span class="incident-status badge-<%= i.status %>"><%= i.status %></span>
+            </div>
+            <p class="incident-monitor">Affected: <%= i.monitor_name %></p>
+            <% if (i.description) { %>
+              <p class="incident-description"><%= i.description %></p>
+            <% } %>
+            <p class="incident-time">
+              Started: <%= new Date(i.started_at).toLocaleString() %>
+              <% if (i.resolved_at) { %>
+                | Resolved: <%= new Date(i.resolved_at).toLocaleString() %>
+              <% } %>
+            </p>
+          </div>
+        <% }) %>
+      </section>
+    <% } %>
+
+    <footer class="status-footer">
+      <p>Powered by StatusPage Generator</p>
+    </footer>
+  </div>
+</body>
+</html>

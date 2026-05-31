@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitors - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Monitors</h1>
+      <a href="/monitors/new" class="btn btn-primary">Add Monitor</a>
+    </div>
+
+    <% if (monitors.length === 0) { %>
+      <p class="empty-state">No monitors yet. Add your first monitor to start tracking uptime.</p>
+    <% } else { %>
+      <div class="monitors-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Name</th>
+              <th>URL</th>
+              <th>Interval</th>
+              <th>Last Checked</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% monitors.forEach(m => { %>
+              <tr>
+                <td><span class="status-indicator status-<%= m.status %>"></span></td>
+                <td><%= m.name %></td>
+                <td class="url-cell"><%= m.url %></td>
+                <td><%= m.check_interval_seconds %>s</td>
+                <td><%= m.last_checked_at || 'Never' %></td>
+                <td class="actions-cell">
+                  <form method="POST" action="/monitors/<%= m.id %>/check" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-primary">Check Now</button>
+                  </form>
+                  <a href="/monitors/<%= m.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                  <form method="POST" action="/monitors/<%= m.id %>/delete" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

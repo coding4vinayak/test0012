@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incidents - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Incidents</h1>
+      <a href="/incidents/new" class="btn btn-primary">Report Incident</a>
+    </div>
+
+    <% if (incidents.length === 0) { %>
+      <p class="empty-state">No incidents reported. That means everything is running smoothly!</p>
+    <% } else { %>
+      <div class="incidents-list">
+        <% incidents.forEach(i => { %>
+          <div class="incident-card incident-<%= i.status %>">
+            <div class="incident-header">
+              <h3><%= i.title %></h3>
+              <span class="incident-status badge-<%= i.status %>"><%= i.status %></span>
+            </div>
+            <p class="incident-monitor">Monitor: <%= i.monitor_name %></p>
+            <% if (i.description) { %>
+              <p class="incident-description"><%= i.description %></p>
+            <% } %>
+            <p class="incident-time">Started: <%= i.started_at %></p>
+            <% if (i.resolved_at) { %>
+              <p class="incident-time">Resolved: <%= i.resolved_at %></p>
+            <% } %>
+            <div class="incident-actions">
+              <% if (i.status !== 'resolved') { %>
+                <form method="POST" action="/incidents/<%= i.id %>/resolve" style="display:inline;">
+                  <button type="submit" class="btn btn-sm btn-success">Resolve</button>
+                </form>
+              <% } %>
+              <a href="/incidents/<%= i.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+              <form method="POST" action="/incidents/<%= i.id %>/delete" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

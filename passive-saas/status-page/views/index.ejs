@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Page Generator - Uptime Monitoring & Public Status Pages</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">StatusPage</div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register" class="btn btn-primary">Get Started</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Monitor Your Services, Keep Users Informed</h1>
+    <p>Create beautiful public status pages and monitor your websites and APIs in real-time. Get instant alerts when things go down.</p>
+    <a href="/auth/register" class="btn btn-primary btn-large">Start Monitoring Free</a>
+  </section>
+
+  <section class="features">
+    <h2>Powerful Monitoring Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F50D;</div>
+        <h3>Uptime Monitoring</h3>
+        <p>Monitor your websites and APIs with configurable check intervals. Get notified the moment something goes wrong.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F4CA;</div>
+        <h3>Public Status Pages</h3>
+        <p>Create branded status pages with custom slugs. Show your users real-time status with uptime history.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x26A1;</div>
+        <h3>Incident Management</h3>
+        <p>Track and communicate incidents to your users. Update status from investigating to resolved.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F4C8;</div>
+        <h3>Response Time Tracking</h3>
+        <p>Track response times and identify performance degradation before it becomes a problem.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F6E1;</div>
+        <h3>30-Day Uptime History</h3>
+        <p>Visual uptime bars showing the last 30 days of history for each monitored service.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F504;</div>
+        <h3>Auto-Refresh Dashboard</h3>
+        <p>Real-time dashboard that auto-refreshes to show the latest status of all your monitors.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Start Monitoring?</h2>
+    <p>Set up your first status page in under 2 minutes. No credit card required.</p>
+    <a href="/auth/register" class="btn btn-primary btn-large">Create Free Account</a>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2024 StatusPage Generator. All rights reserved.</p>
+  </footer>
+</body>
+</html>

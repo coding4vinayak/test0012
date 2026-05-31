@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page ? 'Edit' : 'Create' %> Status Page - Status Page Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">StatusPage</a>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/monitors">Monitors</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><%= page ? 'Edit' : 'Create' %> Status Page</h1>
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    <form method="POST" action="<%= page ? '/status/pages/' + page.id : '/status/pages' %>" class="form">
+      <div class="form-group">
+        <label for="title">Page Title</label>
+        <input type="text" id="title" name="title" value="<%= page ? page.title : '' %>" required placeholder="My Service Status">
+      </div>
+      <div class="form-group">
+        <label for="slug">Slug (URL path)</label>
+        <input type="text" id="slug" name="slug" value="<%= page ? page.slug : '' %>" required placeholder="my-service" pattern="[a-z0-9-]+">
+        <small>Your page will be at /status/your-slug</small>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3" placeholder="Current status of our services..."><%= page ? page.description : '' %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="theme">Theme</label>
+        <select id="theme" name="theme">
+          <option value="light" <%= page && page.theme === 'light' ? 'selected' : '' %>>Light</option>
+          <option value="dark" <%= page && page.theme === 'dark' ? 'selected' : '' %>>Dark</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= page ? 'Update' : 'Create' %> Status Page</button>
+        <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
