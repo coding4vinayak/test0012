@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments - Appointment Scheduler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/services">Services</a>
+        <a href="/availability">Availability</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>All Appointments</h1>
+
+    <% if (appointments.length === 0) { %>
+      <p class="empty-state">No appointments yet. Share your booking link to start receiving bookings.</p>
+    <% } else { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% appointments.forEach(apt => { %>
+              <tr>
+                <td><%= apt.date %></td>
+                <td><%= apt.start_time %> - <%= apt.end_time %></td>
+                <td>
+                  <strong><%= apt.customer_name %></strong><br>
+                  <small><%= apt.customer_email %></small>
+                </td>
+                <td><%= apt.service_name %></td>
+                <td><span class="status-badge status-<%= apt.status %>"><%= apt.status %></span></td>
+                <td class="actions">
+                  <% if (apt.status === 'confirmed') { %>
+                    <form method="POST" action="/appointments/<%= apt.id %>/status" style="display:inline">
+                      <input type="hidden" name="status" value="completed">
+                      <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                    </form>
+                    <form method="POST" action="/appointments/<%= apt.id %>/status" style="display:inline">
+                      <input type="hidden" name="status" value="cancelled">
+                      <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                    </form>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

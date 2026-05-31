@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Availability - Appointment Scheduler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/services">Services</a>
+        <a href="/availability">Availability</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Weekly Availability</h1>
+    <p class="subtitle">Set your working hours for each day of the week.</p>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <div class="form-card">
+      <h3>Add Availability</h3>
+      <form method="POST" action="/availability">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="day_of_week">Day</label>
+            <select id="day_of_week" name="day_of_week" required>
+              <% days.forEach((day, index) => { %>
+                <option value="<%= index %>"><%= day %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="start_time">Start Time</label>
+            <input type="time" id="start_time" name="start_time" required>
+          </div>
+          <div class="form-group">
+            <label for="end_time">End Time</label>
+            <input type="time" id="end_time" name="end_time" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Availability</button>
+      </form>
+    </div>
+
+    <div class="availability-schedule">
+      <h3>Current Schedule</h3>
+      <% if (availability.length === 0) { %>
+        <p class="empty-state">No availability set. Add your working hours above.</p>
+      <% } else { %>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% availability.forEach(slot => { %>
+                <tr>
+                  <td><%= days[slot.day_of_week] %></td>
+                  <td><%= slot.start_time %></td>
+                  <td><%= slot.end_time %></td>
+                  <td>
+                    <form method="POST" action="/availability/<%= slot.id %>/delete" style="display:inline">
+                      <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

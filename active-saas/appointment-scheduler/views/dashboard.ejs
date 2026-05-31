@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Appointment Scheduler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/services">Services</a>
+        <a href="/availability">Availability</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container dashboard">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Welcome back, <%= user.business_name %></p>
+
+    <div class="booking-link">
+      <p>Your public booking link: <a href="/book/<%= user.id %>">/book/<%= user.id %></a></p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Appointments</h3>
+        <div class="stat-value"><%= totalAppointments %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Services</h3>
+        <div class="stat-value"><%= serviceCount %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Completed</h3>
+        <div class="stat-value"><%= completedCount %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Cancelled</h3>
+        <div class="stat-value"><%= cancelledCount %></div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="content-section">
+        <h2>Today's Appointments</h2>
+        <% if (todayAppointments.length === 0) { %>
+          <p class="empty-state">No appointments scheduled for today.</p>
+        <% } else { %>
+          <div class="appointment-list">
+            <% todayAppointments.forEach(apt => { %>
+              <div class="appointment-item">
+                <div class="appointment-time"><%= apt.start_time %> - <%= apt.end_time %></div>
+                <div class="appointment-details">
+                  <strong><%= apt.customer_name %></strong>
+                  <span><%= apt.service_name %> (<%= apt.duration_minutes %> min)</span>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="content-section">
+        <h2>Upcoming Appointments</h2>
+        <% if (upcomingAppointments.length === 0) { %>
+          <p class="empty-state">No upcoming appointments.</p>
+        <% } else { %>
+          <div class="appointment-list">
+            <% upcomingAppointments.forEach(apt => { %>
+              <div class="appointment-item">
+                <div class="appointment-date"><%= apt.date %></div>
+                <div class="appointment-time"><%= apt.start_time %> - <%= apt.end_time %></div>
+                <div class="appointment-details">
+                  <strong><%= apt.customer_name %></strong>
+                  <span><%= apt.service_name %></span>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

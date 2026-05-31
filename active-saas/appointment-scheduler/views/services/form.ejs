@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= service ? 'Edit' : 'New' %> Service - Appointment Scheduler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/services">Services</a>
+        <a href="/availability">Availability</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><%= service ? 'Edit' : 'New' %> Service</h1>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <div class="form-card">
+      <form method="POST" action="<%= service ? '/services/' + service.id : '/services' %>">
+        <div class="form-group">
+          <label for="name">Service Name</label>
+          <input type="text" id="name" name="name" value="<%= service ? service.name : '' %>" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="duration_minutes">Duration (minutes)</label>
+            <input type="number" id="duration_minutes" name="duration_minutes" value="<%= service ? service.duration_minutes : '30' %>" min="5" required>
+          </div>
+          <div class="form-group">
+            <label for="price">Price ($)</label>
+            <input type="number" id="price" name="price" value="<%= service ? service.price : '0' %>" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="3"><%= service ? service.description : '' %></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary"><%= service ? 'Update' : 'Create' %> Service</button>
+          <a href="/services" class="btn">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

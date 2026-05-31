@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - Appointment Scheduler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/services">Services</a>
+        <a href="/availability">Availability</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Services</h1>
+      <a href="/services/new" class="btn btn-primary">Add Service</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <% if (services.length === 0) { %>
+      <div class="empty-state">
+        <p>No services yet. Add your first service to start accepting bookings.</p>
+        <a href="/services/new" class="btn btn-primary">Add Service</a>
+      </div>
+    <% } else { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Duration</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% services.forEach(service => { %>
+              <tr>
+                <td><%= service.name %></td>
+                <td><%= service.duration_minutes %> min</td>
+                <td>$<%= service.price.toFixed(2) %></td>
+                <td><%= service.description || '-' %></td>
+                <td class="actions">
+                  <a href="/services/<%= service.id %>/edit" class="btn btn-sm">Edit</a>
+                  <form method="POST" action="/services/<%= service.id %>/delete" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

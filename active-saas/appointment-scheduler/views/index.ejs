@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Scheduler - Smart Booking for Service Businesses</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+      <div class="nav-links">
+        <% if (user) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/auth/logout">Logout</a>
+        <% } else { %>
+          <a href="/auth/login">Login</a>
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Smart Scheduling for Service Businesses</h1>
+      <p>Let your customers book appointments online 24/7. Manage your calendar, services, and availability with ease.</p>
+      <a href="/auth/register" class="btn btn-primary btn-lg">Start Free Today</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>Everything You Need to Manage Appointments</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Online Booking</h3>
+          <p>Share your booking link and let customers schedule appointments anytime, anywhere.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Service Management</h3>
+          <p>Define your services with custom durations and pricing. Offer exactly what your business provides.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Flexible Availability</h3>
+          <p>Set your weekly schedule and let the system handle time slot calculations automatically.</p>
+        </div>
+        <div class="feature-card">
+          <h3>No Double Bookings</h3>
+          <p>Automatic conflict detection ensures no overlapping appointments ever get booked.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Calendar View</h3>
+          <p>See all your upcoming appointments at a glance with an intuitive calendar interface.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Status Tracking</h3>
+          <p>Manage appointment lifecycle from confirmed to completed or cancelled.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="container">
+      <h2>Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">$0<span>/month</span></div>
+          <ul>
+            <li>Unlimited appointments</li>
+            <li>Up to 5 services</li>
+            <li>Public booking page</li>
+            <li>Email confirmations</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <h3>Professional</h3>
+          <div class="price">$19<span>/month</span></div>
+          <ul>
+            <li>Everything in Free</li>
+            <li>Unlimited services</li>
+            <li>Calendar sync</li>
+            <li>SMS reminders</li>
+            <li>Custom branding</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-primary">Start Trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Appointment Scheduler - Smart scheduling for service businesses</p>
+    </div>
+  </footer>
+</body>
+</html>

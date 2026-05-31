@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment - <%= provider.business_name %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Appointment Scheduler</a>
+    </div>
+  </nav>
+
+  <div class="container booking-page">
+    <h1>Book an Appointment</h1>
+    <p class="subtitle">Schedule a session with <strong><%= provider.business_name %></strong></p>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <% if (services.length === 0) { %>
+      <p class="empty-state">No services available for booking at this time.</p>
+    <% } else { %>
+      <form method="POST" action="/book/<%= provider.id %>" id="booking-form">
+        <div class="booking-steps">
+          <div class="step">
+            <h3>1. Select a Service</h3>
+            <div class="service-cards">
+              <% services.forEach(service => { %>
+                <label class="service-option">
+                  <input type="radio" name="service_id" value="<%= service.id %>" data-duration="<%= service.duration_minutes %>" required>
+                  <div class="service-option-content">
+                    <strong><%= service.name %></strong>
+                    <span class="service-meta"><%= service.duration_minutes %> min - $<%= service.price.toFixed(2) %></span>
+                    <% if (service.description) { %>
+                      <p><%= service.description %></p>
+                    <% } %>
+                  </div>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="step">
+            <h3>2. Choose Date and Time</h3>
+            <div class="date-time-picker">
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" min="" required>
+              </div>
+              <div id="slots-container" class="slots-container">
+                <p class="slot-hint">Select a service and date to see available times.</p>
+              </div>
+              <input type="hidden" id="start_time" name="start_time">
+              <input type="hidden" id="end_time" name="end_time">
+            </div>
+          </div>
+
+          <div class="step">
+            <h3>3. Your Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="customer_name">Name</label>
+                <input type="text" id="customer_name" name="customer_name" placeholder="Your full name" required>
+              </div>
+              <div class="form-group">
+                <label for="customer_email">Email</label>
+                <input type="email" id="customer_email" name="customer_email" placeholder="you@example.com" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Book Appointment</button>
+      </form>
+    <% } %>
+  </div>
+
+  <script src="/js/calendar.js" data-provider-id="<%= provider.id %>"></script>
+</body>
+</html>
