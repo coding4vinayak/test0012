@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= client ? 'Edit' : 'New' %> Client - InvoiceFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/clients" class="active">Clients</a>
+        <a href="/invoices">Invoices</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1><%= client ? 'Edit' : 'New' %> Client</h1>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <div class="form-card">
+      <form action="<%= client ? '/clients/' + client.id : '/clients' %>" method="POST">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required value="<%= client ? client.name : '' %>" placeholder="Client name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required value="<%= client ? client.email : '' %>" placeholder="client@example.com">
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea id="address" name="address" placeholder="Street address, city, state, zip"><%= client ? client.address : '' %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" value="<%= client ? client.phone : '' %>" placeholder="Phone number">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary"><%= client ? 'Update' : 'Create' %> Client</button>
+          <a href="/clients" class="btn btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice <%= invoice.invoice_number %> - InvoiceFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar no-print">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/clients">Clients</a>
+        <a href="/invoices" class="active">Invoices</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header no-print">
+      <h1>Invoice <%= invoice.invoice_number %></h1>
+      <div class="header-actions">
+        <a href="/invoices/<%= invoice.id %>/pdf" class="btn btn-primary">Download PDF</a>
+        <button onclick="window.print()" class="btn btn-outline">Print</button>
+      </div>
+    </div>
+
+    <div class="no-print status-controls">
+      <strong>Status:</strong>
+      <span class="status-badge status-<%= invoice.status %>"><%= invoice.status %></span>
+      <form action="/invoices/<%= invoice.id %>/status" method="POST" style="display:inline;">
+        <% if (invoice.status === 'draft') { %>
+          <input type="hidden" name="status" value="sent">
+          <button type="submit" class="btn btn-small">Mark as Sent</button>
+        <% } else if (invoice.status === 'sent') { %>
+          <input type="hidden" name="status" value="paid">
+          <button type="submit" class="btn btn-small btn-success">Mark as Paid</button>
+        <% } else if (invoice.status === 'overdue') { %>
+          <input type="hidden" name="status" value="paid">
+          <button type="submit" class="btn btn-small btn-success">Mark as Paid</button>
+        <% } %>
+      </form>
+    </div>
+
+    <div class="invoice-document">
+      <div class="invoice-header">
+        <div class="invoice-meta">
+          <h2><%= invoice.invoice_number %></h2>
+          <p><strong>Date:</strong> <%= invoice.created_at %></p>
+          <p><strong>Due Date:</strong> <%= invoice.due_date %></p>
+          <p><strong>Status:</strong> <%= invoice.status.toUpperCase() %></p>
+        </div>
+      </div>
+
+      <div class="invoice-parties">
+        <div class="bill-to">
+          <h3>Bill To</h3>
+          <p><strong><%= invoice.client_name %></strong></p>
+          <p><%= invoice.client_email %></p>
+          <% if (invoice.client_address) { %>
+            <p><%= invoice.client_address %></p>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Rate</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% items.forEach(item => { %>
+            <tr>
+              <td><%= item.description %></td>
+              <td><%= item.quantity %></td>
+              <td>$<%= item.rate.toFixed(2) %></td>
+              <td>$<%= item.amount.toFixed(2) %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-right"><strong>Total</strong></td>
+              <td><strong>$<%= invoice.total.toFixed(2) %></strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <% if (invoice.notes) { %>
+      <div class="invoice-notes">
+        <h3>Notes</h3>
+        <p><%= invoice.notes %></p>
+      </div>
+      <% } %>
+    </div>
+
+    <div class="no-print form-actions" style="margin-top: 1rem;">
+      <a href="/invoices" class="btn btn-outline">Back to Invoices</a>
+      <form action="/invoices/<%= invoice.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this invoice?')">Delete Invoice</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

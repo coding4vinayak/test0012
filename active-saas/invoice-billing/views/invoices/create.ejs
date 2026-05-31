@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Invoice - InvoiceFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/clients">Clients</a>
+        <a href="/invoices" class="active">Invoices</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Create Invoice</h1>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <% if (clients.length === 0) { %>
+      <div class="alert alert-info">You need to <a href="/clients/new">add a client</a> before creating an invoice.</div>
+    <% } else { %>
+    <div class="form-card">
+      <form action="/invoices" method="POST" id="invoice-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="client_id">Client *</label>
+            <select id="client_id" name="client_id" required>
+              <option value="">Select a client</option>
+              <% clients.forEach(client => { %>
+                <option value="<%= client.id %>"><%= client.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="due_date">Due Date *</label>
+            <input type="date" id="due_date" name="due_date" required>
+          </div>
+        </div>
+
+        <div class="line-items-section">
+          <h3>Line Items</h3>
+          <div id="line-items">
+            <div class="line-item">
+              <div class="line-item-fields">
+                <input type="text" name="items[description][]" placeholder="Description" required>
+                <input type="number" name="items[quantity][]" placeholder="Qty" min="0" step="any" value="1" required>
+                <input type="number" name="items[rate][]" placeholder="Rate" min="0" step="0.01" required>
+                <span class="line-amount">$0.00</span>
+                <button type="button" class="btn btn-small btn-danger remove-item">X</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="add-item" class="btn btn-outline btn-small">+ Add Item</button>
+        </div>
+
+        <div class="invoice-total">
+          <strong>Total: <span id="invoice-total">$0.00</span></strong>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Payment terms, thank you message, etc."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Create Invoice</button>
+          <a href="/invoices" class="btn btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <% } %>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients - InvoiceFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/clients" class="active">Clients</a>
+        <a href="/invoices">Invoices</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Clients</h1>
+      <a href="/clients/new" class="btn btn-primary">Add Client</a>
+    </div>
+
+    <% if (clients.length === 0) { %>
+      <p class="empty-state">No clients yet. <a href="/clients/new">Add your first client</a></p>
+    <% } else { %>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% clients.forEach(client => { %>
+          <tr>
+            <td><%= client.name %></td>
+            <td><%= client.email %></td>
+            <td><%= client.phone || '-' %></td>
+            <td>
+              <a href="/clients/<%= client.id %>/edit" class="btn btn-small">Edit</a>
+              <form action="/clients/<%= client.id %>/delete" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Delete this client?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
+</body>
+</html>

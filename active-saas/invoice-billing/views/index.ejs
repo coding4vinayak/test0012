@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InvoiceFlow - Professional Invoicing for Freelancers</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <% if (user) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/auth/logout" class="btn btn-outline">Logout</a>
+        <% } else { %>
+          <a href="/auth/login">Login</a>
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Professional Invoicing Made Simple</h1>
+      <p class="hero-subtitle">Create beautiful invoices, track payments, and manage clients - all in one place. Built for freelancers and small businesses.</p>
+      <div class="hero-actions">
+        <a href="/auth/register" class="btn btn-primary btn-large">Start Free</a>
+        <a href="#features" class="btn btn-outline btn-large">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Everything You Need to Get Paid</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#128221;</div>
+          <h3>Create Invoices</h3>
+          <p>Professional invoices with custom line items, automatic calculations, and PDF export.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128101;</div>
+          <h3>Client Management</h3>
+          <p>Keep all your client details organized in one place for quick invoice creation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128200;</div>
+          <h3>Payment Tracking</h3>
+          <p>Track invoice status from draft to paid. Never lose track of outstanding payments.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128196;</div>
+          <h3>PDF Generation</h3>
+          <p>Generate professional PDF invoices ready to send to your clients.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128202;</div>
+          <h3>Revenue Dashboard</h3>
+          <p>Get a clear overview of your income, pending payments, and overdue invoices.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9888;&#65039;</div>
+          <h3>Overdue Alerts</h3>
+          <p>Stay on top of overdue invoices with clear visual indicators and alerts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="container">
+      <h2>Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">$0<span>/month</span></div>
+          <ul>
+            <li>Up to 5 clients</li>
+            <li>10 invoices per month</li>
+            <li>PDF generation</li>
+            <li>Basic dashboard</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-outline">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <h3>Professional</h3>
+          <div class="price">$19<span>/month</span></div>
+          <ul>
+            <li>Unlimited clients</li>
+            <li>Unlimited invoices</li>
+            <li>PDF generation</li>
+            <li>Advanced dashboard</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-primary">Start Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 InvoiceFlow. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

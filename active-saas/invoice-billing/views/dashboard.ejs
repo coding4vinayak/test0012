@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - InvoiceFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">InvoiceFlow</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/clients">Clients</a>
+        <a href="/invoices">Invoices</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container dashboard">
+    <h1>Dashboard</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value">$<%= totalRevenue.toFixed(2) %></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pending Amount</div>
+        <div class="stat-value pending">$<%= pendingAmount.toFixed(2) %></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Invoices</div>
+        <div class="stat-value"><%= invoiceCount %></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Clients</div>
+        <div class="stat-value"><%= clientCount %></div>
+      </div>
+    </div>
+
+    <div class="dashboard-actions">
+      <a href="/invoices/new" class="btn btn-primary">Create Invoice</a>
+      <a href="/clients/new" class="btn btn-outline">Add Client</a>
+    </div>
+
+    <% if (overdueInvoices.length > 0) { %>
+    <div class="section">
+      <h2 class="section-title overdue-title">Overdue Invoices</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Client</th>
+              <th>Due Date</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% overdueInvoices.forEach(inv => { %>
+            <tr class="overdue-row">
+              <td><%= inv.invoice_number %></td>
+              <td><%= inv.client_name %></td>
+              <td><%= inv.due_date %></td>
+              <td>$<%= inv.total.toFixed(2) %></td>
+              <td><a href="/invoices/<%= inv.id %>" class="btn btn-small">View</a></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% } %>
+
+    <div class="section">
+      <h2 class="section-title">Recent Invoices</h2>
+      <% if (recentInvoices.length === 0) { %>
+        <p class="empty-state">No invoices yet. <a href="/invoices/new">Create your first invoice</a></p>
+      <% } else { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Client</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% recentInvoices.forEach(inv => { %>
+            <tr>
+              <td><%= inv.invoice_number %></td>
+              <td><%= inv.client_name %></td>
+              <td><span class="status-badge status-<%= inv.status %>"><%= inv.status %></span></td>
+              <td><%= inv.due_date %></td>
+              <td>$<%= inv.total.toFixed(2) %></td>
+              <td><a href="/invoices/<%= inv.id %>" class="btn btn-small">View</a></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
