@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Content Generator - Create Amazing Content in Seconds</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">AI Content Generator</a>
+      <div class="nav-links">
+        <% if (user) { %>
+          <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+          <a href="/auth/logout" class="btn btn-outline">Logout</a>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn-secondary">Login</a>
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Generate Amazing Content with AI</h1>
+      <p class="hero-subtitle">Create blog posts, social media content, and professional emails in seconds. Powered by advanced AI to help you communicate better and faster.</p>
+      <a href="/auth/register" class="btn btn-primary btn-large">Start Generating Free</a>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Powerful Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#9997;</div>
+          <h3>Blog Posts</h3>
+          <p>Generate engaging, well-structured blog posts on any topic. Perfect for content marketers and bloggers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128247;</div>
+          <h3>Social Media</h3>
+          <p>Create scroll-stopping social media posts with hashtags and calls-to-action that drive engagement.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9993;</div>
+          <h3>Professional Emails</h3>
+          <p>Craft professional emails that get responses. From cold outreach to follow-ups and proposals.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Lightning Fast</h3>
+          <p>Generate high-quality content in seconds, not hours. Save time and focus on what matters.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128202;</div>
+          <h3>Content History</h3>
+          <p>Access all your previously generated content anytime. Never lose a great idea again.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Secure & Private</h3>
+          <p>Your content is yours. We use industry-standard encryption and never share your data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">$0<span>/month</span></div>
+          <ul>
+            <li>10 generations per month</li>
+            <li>Blog posts & social media</li>
+            <li>Basic content history</li>
+            <li>Community support</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-outline">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="badge">Most Popular</div>
+          <h3>Pro</h3>
+          <div class="price">$19<span>/month</span></div>
+          <ul>
+            <li>Unlimited generations</li>
+            <li>All content types</li>
+            <li>Full content history</li>
+            <li>Priority support</li>
+            <li>Custom templates</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-primary">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price">$49<span>/month</span></div>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Team collaboration</li>
+            <li>API access</li>
+            <li>Dedicated support</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-outline">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 AI Content Generator. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

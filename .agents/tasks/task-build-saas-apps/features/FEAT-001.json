@@ -1,0 +1,33 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Build the AI Content Generator SaaS - a web app that generates blog posts, social media content, and emails using AI. Located at active-saas/ai-content-generator/",
+  "status": "in_progress",
+  "steps": [
+    "Create active-saas/ai-content-generator/ directory structure with: package.json, server.js, routes/, views/, public/, db/",
+    "Set up Express.js server with EJS templates in server.js",
+    "Create SQLite database schema in db/schema.sql with tables: users (id, email, password_hash, created_at), content (id, user_id, type, prompt, result, created_at)",
+    "Build authentication routes in routes/auth.js with register/login/logout using bcrypt and express-session",
+    "Build content generation routes in routes/content.js with endpoints for blog posts, social media, and email generation. Use a mock AI service that generates template-based content (simulating AI output without requiring an API key)",
+    "Create landing page view in views/index.ejs with hero section, features list, pricing section, and CTA",
+    "Create dashboard view in views/dashboard.ejs showing content history and generation form with type selector (blog/social/email), prompt input, and generated output display",
+    "Create public/css/style.css with modern SaaS styling - gradient hero, card components, responsive layout",
+    "Create public/js/app.js with client-side form handling and AJAX content generation requests",
+    "Add comprehensive README.md with project description, features, setup instructions, and screenshots placeholder",
+    "Add basic tests in tests/app.test.js testing server startup, auth routes, and content generation endpoint"
+  ],
+  "acceptance_criteria": [
+    "npm install completes without errors",
+    "npm start launches the server on a configurable port",
+    "Landing page renders with all sections",
+    "User can register and login",
+    "Dashboard allows content generation with different types",
+    "Generated content is saved to SQLite database",
+    "npm test passes all tests"
+  ],
+  "verification": [
+    "cd /projects/sandbox/test0012/active-saas/ai-content-generator && npm install && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
