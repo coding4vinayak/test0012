@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Roast My Resume</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">AI Roast My Resume</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">New Roast</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container dashboard-page">
+    <h1>Your Roast History</h1>
+    <p class="dashboard-subtitle">Track your resume improvements over time</p>
+
+    <% if (roasts.length === 0) { %>
+      <div class="empty-state">
+        <p>No roasts yet. Time to face the music.</p>
+        <a href="/" class="btn btn-primary">Get Your First Roast</a>
+      </div>
+    <% } else { %>
+      <div class="roast-history">
+        <% roasts.forEach(function(roast) { %>
+          <div class="history-card">
+            <div class="history-score">
+              <span class="score-big"><%= roast.overall_score %>/10</span>
+            </div>
+            <div class="history-details">
+              <p class="history-preview"><%= roast.resume_text.substring(0, 100) %>...</p>
+              <div class="history-scores-mini">
+                <span>Impact: <%= roast.impact_score %></span>
+                <span>Clarity: <%= roast.clarity_score %></span>
+                <span>Buzzword: <%= roast.buzzword_score %></span>
+                <span>Cringe: <%= roast.cringe_score %></span>
+              </div>
+              <p class="history-date"><%= new Date(roast.created_at).toLocaleDateString() %></p>
+            </div>
+            <div class="history-actions">
+              <a href="/roast/<%= roast.share_id %>" class="btn btn-small">View</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+
+  <footer class="footer">
+    <p>AI Roast My Resume - Because your resume needs tough love, not another template.</p>
+  </footer>
+</body>
+</html>

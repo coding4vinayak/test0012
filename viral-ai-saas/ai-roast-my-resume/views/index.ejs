@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Roast My Resume - Get Brutally Honest Resume Feedback</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">AI Roast My Resume</a>
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Get Your Resume <span class="highlight">Brutally Roasted</span></h1>
+    <p class="subtitle">Paste your resume text below and our AI will give you a brutally honest (but constructive) roast with scores, section-by-section feedback, and actionable recommendations.</p>
+  </header>
+
+  <main class="container">
+    <% if (error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <section class="roast-form-section">
+      <form id="roast-form" class="roast-form">
+        <div class="form-group">
+          <label for="resume-input">Paste Your Resume Text</label>
+          <textarea id="resume-input" name="resumeText" rows="12" placeholder="Paste your full resume text here... Include your summary, experience, skills, and education sections for the most thorough roast." required></textarea>
+          <div class="char-count"><span id="char-count">0</span> characters</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large">Roast My Resume</button>
+      </form>
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Analyzing your resume with zero mercy...</p>
+      </div>
+      <div id="result-container" class="hidden"></div>
+    </section>
+
+    <section class="features-section">
+      <h2>What You Get</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Score Card</h3>
+          <p>Get rated on Impact, Clarity, Buzzword Density, and Cringe Factor on a scale of 1-10.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Section Roasts</h3>
+          <p>Each section of your resume gets individually roasted with specific feedback.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Buzzword Bingo</h3>
+          <p>We detect and call out every overused buzzword hiding in your resume.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💡</div>
+          <h3>Actionable Tips</h3>
+          <p>Get 3-5 specific, actionable recommendations to actually improve your resume.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <h2>Resume Roast Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">12,847</div>
+          <div class="stat-label">Resumes Roasted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4.2</div>
+          <div class="stat-label">Average Score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">89%</div>
+          <div class="stat-label">Found Buzzwords</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>AI Roast My Resume - Because your resume needs tough love, not another template.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

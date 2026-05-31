@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS roasts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  resume_text TEXT NOT NULL,
+  overall_score INTEGER NOT NULL,
+  impact_score INTEGER NOT NULL,
+  clarity_score INTEGER NOT NULL,
+  buzzword_score INTEGER NOT NULL,
+  cringe_score INTEGER NOT NULL,
+  roast_text TEXT NOT NULL,
+  recommendations TEXT NOT NULL,
+  share_id TEXT UNIQUE NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);

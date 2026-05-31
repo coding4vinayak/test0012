@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Roast Card - AI Roast My Resume</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">AI Roast My Resume</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">Get Your Resume Roasted</a>
+    </div>
+  </nav>
+
+  <main class="container share-page">
+    <div class="share-card">
+      <div class="share-header">
+        <h1>Resume Roast Card</h1>
+        <div class="grade-badge grade-<%= roast.letterGrade.charAt(0).toLowerCase() %>">
+          <%= roast.letterGrade %>
+        </div>
+      </div>
+
+      <div class="share-scores">
+        <div class="share-score-item">
+          <span class="score-label">Impact</span>
+          <span class="score-value"><%= roast.impact_score %>/10</span>
+        </div>
+        <div class="share-score-item">
+          <span class="score-label">Clarity</span>
+          <span class="score-value"><%= roast.clarity_score %>/10</span>
+        </div>
+        <div class="share-score-item">
+          <span class="score-label">Buzzword-Free</span>
+          <span class="score-value"><%= roast.buzzword_score %>/10</span>
+        </div>
+        <div class="share-score-item">
+          <span class="score-label">Cringe Factor</span>
+          <span class="score-value"><%= roast.cringe_score %>/10</span>
+        </div>
+        <div class="share-score-item overall">
+          <span class="score-label">Overall</span>
+          <span class="score-value"><%= roast.overall_score %>/10</span>
+        </div>
+      </div>
+
+      <div class="share-verdict">
+        <h3>The Verdict</h3>
+        <p><%= roast.data.verdict %></p>
+      </div>
+
+      <div class="share-first-impression">
+        <h3>First Impression</h3>
+        <p><%= roast.data.firstImpression %></p>
+      </div>
+    </div>
+
+    <div class="share-cta">
+      <h2>Think you can do better?</h2>
+      <p>Get your own resume brutally roasted with AI-powered feedback.</p>
+      <a href="/" class="btn btn-primary btn-large">Roast My Resume</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>AI Roast My Resume - Because your resume needs tough love, not another template.</p>
+  </footer>
+</body>
+</html>

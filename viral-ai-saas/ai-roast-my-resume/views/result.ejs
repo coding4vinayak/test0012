@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Resume Roast Results - AI Roast My Resume</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">AI Roast My Resume</a>
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="container results-page">
+    <div class="overall-grade">
+      <div class="grade-badge grade-<%= roast.letterGrade.charAt(0).toLowerCase() %>">
+        <%= roast.letterGrade %>
+      </div>
+      <h1>Your Resume Score: <%= roast.overallScore %>/10</h1>
+    </div>
+
+    <section class="scores-section">
+      <h2>Score Breakdown</h2>
+      <div class="score-bars">
+        <div class="score-bar-item">
+          <label>Impact</label>
+          <div class="bar-container">
+            <div class="bar" style="width: <%= roast.impactScore * 10 %>%" data-score="<%= roast.impactScore %>"></div>
+          </div>
+          <span class="score-value"><%= roast.impactScore %>/10</span>
+        </div>
+        <div class="score-bar-item">
+          <label>Clarity</label>
+          <div class="bar-container">
+            <div class="bar" style="width: <%= roast.clarityScore * 10 %>%" data-score="<%= roast.clarityScore %>"></div>
+          </div>
+          <span class="score-value"><%= roast.clarityScore %>/10</span>
+        </div>
+        <div class="score-bar-item">
+          <label>Buzzword-Free</label>
+          <div class="bar-container">
+            <div class="bar" style="width: <%= roast.buzzwordScore * 10 %>%" data-score="<%= roast.buzzwordScore %>"></div>
+          </div>
+          <span class="score-value"><%= roast.buzzwordScore %>/10</span>
+        </div>
+        <div class="score-bar-item">
+          <label>Cringe Factor</label>
+          <div class="bar-container">
+            <div class="bar bar-cringe" style="width: <%= roast.cringeScore * 10 %>%" data-score="<%= roast.cringeScore %>"></div>
+          </div>
+          <span class="score-value"><%= roast.cringeScore %>/10</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="roast-details">
+      <h2>The Roast</h2>
+      <div class="first-impression">
+        <h3>First Impression</h3>
+        <p class="roast-quote"><%= roast.data.firstImpression %></p>
+      </div>
+
+      <div class="section-roasts">
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="exp-section">
+            <span>Experience Section</span>
+            <span class="toggle-icon">+</span>
+          </button>
+          <div id="exp-section" class="expandable-content hidden">
+            <p><%= roast.data.sections.experience.roast %></p>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="skills-section">
+            <span>Skills Section</span>
+            <span class="toggle-icon">+</span>
+          </button>
+          <div id="skills-section" class="expandable-content hidden">
+            <p><%= roast.data.sections.skills.roast %></p>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="edu-section">
+            <span>Education Section</span>
+            <span class="toggle-icon">+</span>
+          </button>
+          <div id="edu-section" class="expandable-content hidden">
+            <p><%= roast.data.sections.education.roast %></p>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="summary-section">
+            <span>Summary/Objective</span>
+            <span class="toggle-icon">+</span>
+          </button>
+          <div id="summary-section" class="expandable-content hidden">
+            <p><%= roast.data.sections.summary.roast %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="buzzword-section">
+        <h3>Buzzword Bingo</h3>
+        <p><%= roast.data.buzzwordBingo %></p>
+      </div>
+
+      <div class="impact-section">
+        <h3>Impact Check</h3>
+        <p><%= roast.data.impactCheck %></p>
+      </div>
+
+      <div class="cringe-section">
+        <h3>Cringe Meter</h3>
+        <p><%= roast.data.cringeMeter %></p>
+      </div>
+
+      <div class="verdict-section">
+        <h3>The Verdict</h3>
+        <p class="verdict-text"><%= roast.data.verdict %></p>
+      </div>
+    </section>
+
+    <section class="recommendations-section">
+      <h2>How to Actually Fix This</h2>
+      <div class="recommendations-list">
+        <% roast.recommendations.forEach(function(rec, i) { %>
+          <div class="recommendation-card">
+            <span class="rec-number"><%= i + 1 %></span>
+            <p><%= rec %></p>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+
+    <div class="actions-bar">
+      <button class="btn btn-share" onclick="shareResult('<%= roast.shareId %>')">Share Score Card</button>
+      <a href="/" class="btn btn-secondary">Roast Another Resume</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>AI Roast My Resume - Because your resume needs tough love, not another template.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
