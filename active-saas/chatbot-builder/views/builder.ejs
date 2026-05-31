@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Builder - <%= chatbot.name %> - Chatbot Builder</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">ChatBot Builder</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/chatbots">My Chatbots</a>
+        <a href="/chatbots/<%= chatbot.id %>/embed" class="btn btn-outline">Get Embed Code</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="builder-container">
+    <div class="builder-sidebar">
+      <div class="builder-sidebar-header">
+        <h2><%= chatbot.name %></h2>
+        <p class="text-muted">Flow Builder</p>
+      </div>
+
+      <div class="flow-form" id="flow-form">
+        <h3 id="form-title">Add New Flow</h3>
+        <input type="hidden" id="flow-id" value="">
+        <div class="form-group">
+          <label for="flow-trigger">Trigger Keywords</label>
+          <input type="text" id="flow-trigger" placeholder="e.g., hello, hi, hey" class="form-input">
+          <small>Comma-separated keywords that trigger this flow</small>
+        </div>
+        <div class="form-group">
+          <label for="flow-response">Bot Response</label>
+          <textarea id="flow-response" rows="4" placeholder="The bot will reply with this message..." class="form-input"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="flow-next">Chain to Flow (optional)</label>
+          <select id="flow-next" class="form-input">
+            <option value="">None</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="save-flow-btn">Save Flow</button>
+          <button class="btn btn-outline" id="cancel-flow-btn" style="display:none">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="builder-canvas" id="builder-canvas">
+      <div class="canvas-header">
+        <h3>Conversation Flows</h3>
+        <span class="flow-count"><%= flows.length %> flows</span>
+      </div>
+      <div class="canvas-area" id="canvas-area">
+        <% if (flows.length === 0) { %>
+          <div class="empty-canvas">
+            <p>No flows yet. Add your first flow using the form on the left.</p>
+          </div>
+        <% } %>
+        <% flows.forEach(function(flow, index) { %>
+          <div class="flow-node" id="flow-<%= flow.id %>" data-id="<%= flow.id %>"
+               style="left: <%= flow.position_x || (50 + index * 20) %>px; top: <%= flow.position_y || (50 + index * 100) %>px"
+               draggable="true">
+            <div class="flow-node-header">
+              <span class="flow-trigger-label"><%= flow.trigger %></span>
+              <div class="flow-node-actions">
+                <button class="btn-icon edit-flow" data-id="<%= flow.id %>">&#9998;</button>
+                <button class="btn-icon delete-flow" data-id="<%= flow.id %>">&#10005;</button>
+              </div>
+            </div>
+            <div class="flow-node-body">
+              <p><%= flow.response.substring(0, 80) %><%= flow.response.length > 80 ? '...' : '' %></p>
+            </div>
+            <% if (flow.next_flow_id) { %>
+              <div class="flow-node-footer">
+                <span class="flow-chain">Chains to flow #<%= flow.next_flow_id %></span>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var CHATBOT_ID = '<%= chatbot.id %>';
+    var FLOWS = <%- JSON.stringify(flows) %>;
+  </script>
+  <script src="/js/builder.js"></script>
+</body>
+</html>

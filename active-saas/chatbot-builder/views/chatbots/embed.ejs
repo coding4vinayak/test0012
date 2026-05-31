@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embed Code - <%= chatbot.name %> - Chatbot Builder</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">ChatBot Builder</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/chatbots">My Chatbots</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Embed Code</h1>
+      <a href="/chatbots/<%= chatbot.id %>/builder" class="btn btn-outline">Back to Builder</a>
+    </div>
+
+    <div class="embed-card">
+      <h2><%= chatbot.name %></h2>
+      <p>Add this script tag to your website to embed the chatbot widget. Place it just before the closing <code>&lt;/body&gt;</code> tag.</p>
+
+      <div class="code-block">
+        <pre><code>&lt;script src="<%= embedUrl %>"&gt;&lt;/script&gt;</code></pre>
+        <button class="btn btn-sm btn-primary copy-btn" onclick="copyEmbed()">Copy Code</button>
+      </div>
+
+      <h3>Configuration</h3>
+      <table class="config-table">
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td><%= chatbot.name %></td>
+        </tr>
+        <tr>
+          <td><strong>Welcome Message:</strong></td>
+          <td><%= chatbot.welcome_message %></td>
+        </tr>
+        <tr>
+          <td><strong>Theme Color:</strong></td>
+          <td><span class="color-dot" style="background: <%= chatbot.theme_color %>"></span> <%= chatbot.theme_color %></td>
+        </tr>
+      </table>
+
+      <h3>Instructions</h3>
+      <ol class="embed-instructions">
+        <li>Copy the embed code above</li>
+        <li>Paste it into your website HTML, just before <code>&lt;/body&gt;</code></li>
+        <li>The chatbot widget will appear as a floating bubble in the bottom-right corner</li>
+        <li>Visitors can click it to start a conversation</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    function copyEmbed() {
+      var code = '<script src="<%= embedUrl %>"></' + 'script>';
+      navigator.clipboard.writeText(code).then(function() {
+        var btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(function() { btn.textContent = 'Copy Code'; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

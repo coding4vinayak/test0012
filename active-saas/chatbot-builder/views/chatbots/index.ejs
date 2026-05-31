@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Chatbots - Chatbot Builder</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">ChatBot Builder</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/chatbots">My Chatbots</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My Chatbots</h1>
+      <a href="/chatbots/new" class="btn btn-primary">Create New</a>
+    </div>
+
+    <% if (chatbots.length === 0) { %>
+      <div class="empty-state">
+        <h3>No chatbots yet</h3>
+        <p>Create your first chatbot to get started.</p>
+        <a href="/chatbots/new" class="btn btn-primary">Create Chatbot</a>
+      </div>
+    <% } else { %>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Welcome Message</th>
+              <th>Theme</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% chatbots.forEach(function(bot) { %>
+              <tr>
+                <td><strong><%= bot.name %></strong></td>
+                <td class="text-truncate"><%= bot.welcome_message %></td>
+                <td><span class="color-dot" style="background: <%= bot.theme_color %>"></span> <%= bot.theme_color %></td>
+                <td><%= new Date(bot.created_at).toLocaleDateString() %></td>
+                <td class="actions">
+                  <a href="/chatbots/<%= bot.id %>/builder" class="btn btn-sm btn-primary">Builder</a>
+                  <a href="/chatbots/<%= bot.id %>/embed" class="btn btn-sm btn-outline">Embed</a>
+                  <a href="/chatbots/<%= bot.id %>/edit" class="btn btn-sm btn-outline">Edit</a>
+                  <form method="POST" action="/chatbots/<%= bot.id %>/delete" style="display:inline" onsubmit="return confirm('Delete this chatbot?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

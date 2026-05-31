@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Builder - No-Code Chatbot Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">ChatBot Builder</a>
+      <div class="nav-links">
+        <% if (user) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/auth/logout" class="btn btn-outline">Logout</a>
+        <% } else { %>
+          <a href="/auth/login">Login</a>
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Build Smart Chatbots<br>Without Writing Code</h1>
+      <p class="hero-subtitle">Create conversational chatbots for your website in minutes. Design flows, customize appearance, and embed anywhere with a single script tag.</p>
+      <div class="hero-actions">
+        <a href="/auth/register" class="btn btn-primary btn-lg">Start Building Free</a>
+        <a href="#demo" class="btn btn-outline btn-lg">See Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Everything You Need to Build Chatbots</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#x1f4ac;</div>
+          <h3>Visual Flow Builder</h3>
+          <p>Design conversation flows with our intuitive drag-and-drop interface. No coding required.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#x1f3a8;</div>
+          <h3>Customizable Themes</h3>
+          <p>Match your brand with customizable colors, welcome messages, and chat bubble styles.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#x1f4cb;</div>
+          <h3>Easy Embedding</h3>
+          <p>Add your chatbot to any website with a single script tag. Works with all platforms.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#x1f4ca;</div>
+          <h3>Conversation Analytics</h3>
+          <p>Track conversations, popular triggers, and visitor engagement in real-time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#x26a1;</div>
+          <h3>Instant Responses</h3>
+          <p>Lightning-fast responses powered by trigger-based flow matching and chaining.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#x1f512;</div>
+          <h3>Secure & Reliable</h3>
+          <p>All conversations are encrypted and stored securely. 99.9% uptime guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section" id="demo">
+    <div class="container">
+      <h2 class="section-title">See It In Action</h2>
+      <p class="section-subtitle">Try our demo chatbot below. Type "hello", "pricing", or "help" to see it respond.</p>
+      <div class="demo-chat">
+        <div class="demo-chat-header">
+          <span class="demo-chat-title">Demo Bot</span>
+          <span class="demo-status">Online</span>
+        </div>
+        <div class="demo-messages" id="demo-messages">
+          <div class="demo-message bot">
+            <p>Hello! I'm a demo chatbot. Try typing "hello", "pricing", or "help" to see me respond!</p>
+          </div>
+        </div>
+        <div class="demo-input-area">
+          <input type="text" id="demo-input" placeholder="Type a message..." autocomplete="off">
+          <button id="demo-send" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">$0<span>/month</span></div>
+          <ul>
+            <li>1 Chatbot</li>
+            <li>5 Flows per bot</li>
+            <li>100 conversations/month</li>
+            <li>Basic themes</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-outline btn-block">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <h3>Pro</h3>
+          <div class="price">$29<span>/month</span></div>
+          <ul>
+            <li>Unlimited Chatbots</li>
+            <li>Unlimited Flows</li>
+            <li>Unlimited conversations</li>
+            <li>Custom themes</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-primary btn-block">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price">$99<span>/month</span></div>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>API access</li>
+            <li>Custom integrations</li>
+            <li>Dedicated support</li>
+            <li>SLA guarantee</li>
+          </ul>
+          <a href="/auth/register" class="btn btn-outline btn-block">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 ChatBot Builder. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Demo chatbot functionality
+    const demoMessages = document.getElementById('demo-messages');
+    const demoInput = document.getElementById('demo-input');
+    const demoSend = document.getElementById('demo-send');
+
+    const demoResponses = {
+      'hello': 'Hi there! Welcome to ChatBot Builder. How can I help you today?',
+      'hi': 'Hi there! Welcome to ChatBot Builder. How can I help you today?',
+      'pricing': 'We offer three plans: Free ($0/mo), Pro ($29/mo), and Enterprise ($99/mo). The Pro plan is our most popular!',
+      'help': 'I can help you with: pricing info, features overview, or getting started. Just ask!',
+      'features': 'ChatBot Builder offers: Visual flow builder, customizable themes, easy embedding, analytics, and more!',
+    };
+
+    function addDemoMessage(content, role) {
+      const msg = document.createElement('div');
+      msg.className = 'demo-message ' + role;
+      msg.innerHTML = '<p>' + content + '</p>';
+      demoMessages.appendChild(msg);
+      demoMessages.scrollTop = demoMessages.scrollHeight;
+    }
+
+    function handleDemoSend() {
+      const text = demoInput.value.trim();
+      if (!text) return;
+
+      addDemoMessage(text, 'visitor');
+      demoInput.value = '';
+
+      setTimeout(function() {
+        const lower = text.toLowerCase();
+        let response = 'I am not sure how to respond to that. Try "hello", "pricing", "help", or "features".';
+        for (const key in demoResponses) {
+          if (lower.includes(key)) {
+            response = demoResponses[key];
+            break;
+          }
+        }
+        addDemoMessage(response, 'bot');
+      }, 500);
+    }
+
+    demoSend.addEventListener('click', handleDemoSend);
+    demoInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') handleDemoSend();
+    });
+  </script>
+</body>
+</html>

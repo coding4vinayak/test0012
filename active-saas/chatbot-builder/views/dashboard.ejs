@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Chatbot Builder</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">ChatBot Builder</a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/chatbots">My Chatbots</a>
+        <a href="/auth/logout" class="btn btn-outline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container dashboard">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <a href="/chatbots/new" class="btn btn-primary">Create New Chatbot</a>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value"><%= chatbots.length %></div>
+        <div class="stat-label">Total Chatbots</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= chatbots.reduce((sum, b) => sum + b.flowCount, 0) %></div>
+        <div class="stat-label">Total Flows</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= chatbots.reduce((sum, b) => sum + b.conversationCount, 0) %></div>
+        <div class="stat-label">Conversations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= chatbots.reduce((sum, b) => sum + b.messageCount, 0) %></div>
+        <div class="stat-label">Messages</div>
+      </div>
+    </div>
+
+    <% if (chatbots.length === 0) { %>
+      <div class="empty-state">
+        <h3>No chatbots yet</h3>
+        <p>Create your first chatbot to get started.</p>
+        <a href="/chatbots/new" class="btn btn-primary">Create Chatbot</a>
+      </div>
+    <% } else { %>
+      <h2 class="section-heading">Your Chatbots</h2>
+      <div class="chatbot-grid">
+        <% chatbots.forEach(function(bot) { %>
+          <div class="chatbot-card">
+            <div class="chatbot-card-header" style="border-top: 4px solid <%= bot.theme_color %>">
+              <h3><%= bot.name %></h3>
+              <span class="chatbot-badge" style="background: <%= bot.theme_color %>20; color: <%= bot.theme_color %>"><%= bot.flowCount %> flows</span>
+            </div>
+            <div class="chatbot-card-body">
+              <p class="welcome-preview"><%= bot.welcome_message %></p>
+              <div class="chatbot-stats">
+                <span><%= bot.conversationCount %> conversations</span>
+                <span><%= bot.messageCount %> messages</span>
+              </div>
+            </div>
+            <div class="chatbot-card-actions">
+              <a href="/chatbots/<%= bot.id %>/builder" class="btn btn-sm btn-primary">Builder</a>
+              <a href="/chatbots/<%= bot.id %>/embed" class="btn btn-sm btn-outline">Embed</a>
+              <a href="/chatbots/<%= bot.id %>/edit" class="btn btn-sm btn-outline">Edit</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
