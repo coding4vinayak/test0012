@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator - Create Custom QR Codes</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">&#9638;</span> QR Code Generator
+    </div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/generate">Create QR</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Generate QR Codes Instantly</h1>
+    <p>Create beautiful, customizable QR codes for URLs, text, WiFi, and vCards. Track scans with powerful analytics.</p>
+  </section>
+
+  <section class="live-preview-section">
+    <h2>Try It Now</h2>
+    <p>Generate a QR code instantly - no account needed for basic use.</p>
+    <div class="preview-container">
+      <div class="preview-input">
+        <input type="text" id="preview-content" placeholder="Enter a URL or text..." class="input-large">
+        <select id="preview-type" class="select-type">
+          <option value="url">URL</option>
+          <option value="text">Text</option>
+        </select>
+      </div>
+      <div class="preview-output">
+        <div id="qr-preview-box" class="qr-preview-box">
+          <p class="placeholder-text">Your QR code will appear here</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>Powerful Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Multiple Content Types</h3>
+        <p>Generate QR codes for URLs, plain text, WiFi credentials, and contact vCards.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Full Customization</h3>
+        <p>Choose custom colors, sizes, and styles to match your brand identity.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Download Formats</h3>
+        <p>Export your QR codes as high-quality PNG or scalable SVG files.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Scan Analytics</h3>
+        <p>Track who scans your codes with detailed analytics and trends.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Create QR Codes?</h2>
+    <p>Sign up for free and unlock full customization, scan tracking, and analytics.</p>
+    <a href="/auth/register" class="btn btn-primary">Get Started Free</a>
+  </section>
+
+  <footer class="footer">
+    <p>QR Code Generator - Create, customize, and track QR codes with ease.</p>
+  </footer>
+
+  <script src="/js/generator.js"></script>
+  <script>
+    const input = document.getElementById('preview-content');
+    const typeSelect = document.getElementById('preview-type');
+    const previewBox = document.getElementById('qr-preview-box');
+    let debounceTimer;
+
+    function updatePreview() {
+      const content = input.value.trim();
+      if (!content) {
+        previewBox.innerHTML = '<p class="placeholder-text">Your QR code will appear here</p>';
+        return;
+      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(async () => {
+        try {
+          const res = await fetch('/qrcodes/preview', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: typeSelect.value, content })
+          });
+          const data = await res.json();
+          if (data.success) {
+            previewBox.innerHTML = '<img src="' + data.dataUrl + '" alt="QR Code Preview">';
+          }
+        } catch (e) { /* ignore */ }
+      }, 400);
+    }
+
+    input.addEventListener('input', updatePreview);
+    typeSelect.addEventListener('change', updatePreview);
+  </script>
+</body>
+</html>

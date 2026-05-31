@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate QR Code - QR Code Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">&#9638;</span> QR Code Generator
+    </div>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/generate">Create QR</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Generate QR Code</h1>
+
+    <div class="generator-layout">
+      <div class="generator-form">
+        <form id="qr-form">
+          <div class="form-group">
+            <label for="type">Content Type</label>
+            <select id="type" name="type" class="select-type">
+              <option value="url">URL</option>
+              <option value="text">Text</option>
+              <option value="vcard">vCard (Contact)</option>
+              <option value="wifi">WiFi</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="content-group">
+            <label for="content">Content</label>
+            <input type="text" id="content" name="content" placeholder="https://example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="foreground_color">Foreground Color</label>
+            <input type="color" id="foreground_color" name="foreground_color" value="#000000">
+          </div>
+
+          <div class="form-group">
+            <label for="background_color">Background Color</label>
+            <input type="color" id="background_color" name="background_color" value="#ffffff">
+          </div>
+
+          <div class="form-group">
+            <label for="size">Size (px)</label>
+            <input type="range" id="size" name="size" min="100" max="600" value="300">
+            <span id="size-display">300px</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Create QR Code</button>
+        </form>
+      </div>
+
+      <div class="generator-preview">
+        <h3>Live Preview</h3>
+        <div id="qr-live-preview" class="qr-preview-box">
+          <p class="placeholder-text">Start typing to see preview</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/generator.js"></script>
+</body>
+</html>

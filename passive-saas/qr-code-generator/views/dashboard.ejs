@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - QR Code Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">&#9638;</span> QR Code Generator
+    </div>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/generate">Create QR</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="dashboard-header">
+      <h1>Your QR Codes</h1>
+      <a href="/generate" class="btn btn-primary">Create New QR Code</a>
+    </div>
+
+    <% if (qrcodes.length === 0) { %>
+      <div class="empty-state">
+        <h2>No QR codes yet</h2>
+        <p>Create your first QR code to get started.</p>
+        <a href="/generate" class="btn btn-primary">Generate QR Code</a>
+      </div>
+    <% } else { %>
+      <div class="qr-grid">
+        <% qrcodes.forEach(qr => { %>
+          <div class="qr-card" data-id="<%= qr.id %>">
+            <div class="qr-card-header">
+              <span class="qr-type-badge"><%= qr.type.toUpperCase() %></span>
+              <span class="qr-scan-count"><%= qr.scan_count %> scans</span>
+            </div>
+            <div class="qr-card-content">
+              <p class="qr-content-text"><%= qr.content.substring(0, 60) %><%= qr.content.length > 60 ? '...' : '' %></p>
+            </div>
+            <div class="qr-card-meta">
+              <span>Size: <%= qr.size %>px</span>
+              <span class="color-swatch" style="background: <%= qr.foreground_color %>"></span>
+            </div>
+            <div class="qr-card-actions">
+              <a href="/qrcodes/<%= qr.id %>/download/png" class="btn btn-small">PNG</a>
+              <a href="/qrcodes/<%= qr.id %>/download/svg" class="btn btn-small">SVG</a>
+              <a href="/analytics/<%= qr.id %>" class="btn btn-small btn-info">Analytics</a>
+              <button class="btn btn-small btn-danger" onclick="deleteQR(<%= qr.id %>)">Delete</button>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    async function deleteQR(id) {
+      if (!confirm('Are you sure you want to delete this QR code?')) return;
+      try {
+        const res = await fetch('/qrcodes/' + id, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          document.querySelector('[data-id="' + id + '"]').remove();
+        }
+      } catch (e) { alert('Failed to delete QR code'); }
+    }
+  </script>
+</body>
+</html>

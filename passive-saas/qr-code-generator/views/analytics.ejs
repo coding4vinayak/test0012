@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - QR Code Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">&#9638;</span> QR Code Generator
+    </div>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/generate">Create QR</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="analytics-header">
+      <h1>Scan Analytics</h1>
+      <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="analytics-summary">
+      <div class="stat-card">
+        <h3>Total Scans</h3>
+        <span class="stat-value"><%= qrCode.scan_count %></span>
+      </div>
+      <div class="stat-card">
+        <h3>Content Type</h3>
+        <span class="stat-value"><%= qrCode.type.toUpperCase() %></span>
+      </div>
+      <div class="stat-card">
+        <h3>Created</h3>
+        <span class="stat-value"><%= new Date(qrCode.created_at).toLocaleDateString() %></span>
+      </div>
+    </div>
+
+    <div class="analytics-content-box">
+      <h3>QR Code Content</h3>
+      <p class="content-display"><%= qrCode.content %></p>
+      <p>
+        <strong>Tracking URL:</strong>
+        <code>/track/<%= qrCode.id %></code>
+      </p>
+    </div>
+
+    <div class="scan-history">
+      <h2>Scan History</h2>
+      <% if (scans.length === 0) { %>
+        <p class="empty-state-text">No scans recorded yet. Share your QR code to start tracking.</p>
+      <% } else { %>
+        <table class="scans-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>IP Address</th>
+              <th>User Agent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% scans.forEach(scan => { %>
+              <tr>
+                <td><%= new Date(scan.scanned_at).toLocaleString() %></td>
+                <td><%= scan.ip_address %></td>
+                <td class="ua-cell"><%= scan.user_agent.substring(0, 50) %><%= scan.user_agent.length > 50 ? '...' : '' %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
