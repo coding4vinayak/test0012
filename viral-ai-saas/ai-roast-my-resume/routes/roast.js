@@ -220,12 +220,19 @@ function getLetterGrade(score) {
   return 'F';
 }
 
+// Maximum allowed resume text length (50,000 characters)
+const MAX_RESUME_LENGTH = 50000;
+
 // Generate roast endpoint
 router.post('/generate', (req, res) => {
   const { resumeText } = req.body;
 
   if (!resumeText || !resumeText.trim()) {
     return res.status(400).json({ error: 'Resume text is required' });
+  }
+
+  if (resumeText.length > MAX_RESUME_LENGTH) {
+    return res.status(400).json({ error: 'Resume text exceeds maximum length of 50000 characters' });
   }
 
   const trimmedText = resumeText.trim();

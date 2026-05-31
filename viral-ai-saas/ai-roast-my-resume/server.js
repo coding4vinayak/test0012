@@ -7,7 +7,7 @@ const authRoutes = require('./routes/auth');
 const roastRoutes = require('./routes/roast');
 
 const app = express();
-const PORT = process.env.PORT || 3045;
+const PORT = process.env.PORT || 3046;
 
 // View engine
 app.set('view engine', 'ejs');

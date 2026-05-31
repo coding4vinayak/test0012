@@ -27,7 +27,7 @@ npm install
 npm start
 ```
 
-The app will run on `http://localhost:3045`.
+The app will run on `http://localhost:3046`.
 
 ## Testing
 
@@ -37,7 +37,7 @@ npm test
 
 ## Environment Variables
 
-- `PORT` - Server port (default: 3045)
+- `PORT` - Server port (default: 3046)
 - `DB_PATH` - Database file path (default: ./db/app.db)
 - `SESSION_SECRET` - Session encryption key
 - `NODE_ENV` - Set to 'test' for testing mode

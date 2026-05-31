@@ -215,6 +215,17 @@ function generateShareId() {
   return crypto.randomBytes(8).toString('hex');
 }
 
+// Whitelist of valid programming languages
+const VALID_LANGUAGES = [
+  'javascript', 'python', 'java', 'typescript', 'go', 'rust', 'ruby',
+  'php', 'c', 'cpp', 'csharp', 'swift', 'kotlin', 'scala', 'haskell',
+  'elixir', 'clojure', 'dart', 'lua', 'perl', 'r', 'shell', 'sql',
+  'html', 'css', 'objective-c', 'assembly'
+];
+
+// Maximum allowed code snippet length (50,000 characters)
+const MAX_CODE_LENGTH = 50000;
+
 // Generate roast endpoint
 router.post('/generate', (req, res) => {
   const { code, language } = req.body;
@@ -223,7 +234,13 @@ router.post('/generate', (req, res) => {
     return res.status(400).json({ error: 'Code snippet is required' });
   }
 
-  const lang = language || 'javascript';
+  if (code.length > MAX_CODE_LENGTH) {
+    return res.status(400).json({ error: 'Code snippet exceeds maximum length of 50000 characters' });
+  }
+
+  const lang = (language && VALID_LANGUAGES.includes(language.toLowerCase()))
+    ? language.toLowerCase()
+    : 'javascript';
 
   const roast = generateCodeRoast(code, lang);
   const shareId = generateShareId();
