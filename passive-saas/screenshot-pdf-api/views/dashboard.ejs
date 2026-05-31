@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Screenshot & PDF API</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">ScreenPDF<span>API</span></a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/playground">Playground</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="dashboard">
+    <div class="container">
+      <h1>Dashboard</h1>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Requests</h3>
+          <div class="stat-value"><%= totalRequests %></div>
+        </div>
+        <div class="stat-card">
+          <h3>Active Keys</h3>
+          <div class="stat-value"><%= apiKeys.filter(k => k.active).length %></div>
+        </div>
+        <div class="stat-card">
+          <h3>Rate Limit</h3>
+          <div class="stat-value">100/hr</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>API Keys</h2>
+        <form id="create-key-form" class="inline-form">
+          <input type="text" id="key-name" placeholder="Key name (e.g. Production)" required>
+          <button type="submit" class="btn btn-primary">Create Key</button>
+        </form>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Key</th>
+              <th>Requests</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="keys-table">
+            <% apiKeys.forEach(key => { %>
+              <tr>
+                <td><%= key.name %></td>
+                <td><code class="api-key-display"><%= key.key.substring(0, 12) %>...</code></td>
+                <td><%= key.requests_count %></td>
+                <td><span class="badge <%= key.active ? 'badge-success' : 'badge-danger' %>"><%= key.active ? 'Active' : 'Revoked' %></span></td>
+                <td><%= new Date(key.created_at).toLocaleDateString() %></td>
+                <td>
+                  <% if (key.active) { %>
+                    <button class="btn btn-sm btn-danger revoke-btn" data-id="<%= key.id %>">Revoke</button>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Recent Requests</h2>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Input</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% recentRequests.forEach(req => { %>
+              <tr>
+                <td><span class="badge badge-info"><%= req.type %></span></td>
+                <td><%= req.input_url || req.input_html || 'N/A' %></td>
+                <td><span class="badge <%= req.status === 'completed' ? 'badge-success' : 'badge-danger' %>"><%= req.status %></span></td>
+                <td><%= new Date(req.created_at).toLocaleString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('create-key-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('key-name').value;
+      const res = await fetch('/keys/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        alert('API Key created: ' + data.apiKey.key);
+        location.reload();
+      } else {
+        const err = await res.json();
+        alert(err.error);
+      }
+    });
+
+    document.querySelectorAll('.revoke-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!confirm('Are you sure you want to revoke this key?')) return;
+        const id = btn.dataset.id;
+        const res = await fetch('/keys/' + id + '/revoke', { method: 'POST' });
+        if (res.ok) location.reload();
+      });
+    });
+  </script>
+</body>
+</html>

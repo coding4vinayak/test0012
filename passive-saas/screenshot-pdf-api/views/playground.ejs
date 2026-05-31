@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Playground - Screenshot & PDF API</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">ScreenPDF<span>API</span></a>
+      <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/playground">Playground</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="playground">
+    <div class="container">
+      <h1>API Playground</h1>
+      <p class="subtitle">Test the API endpoints interactively</p>
+
+      <div class="playground-grid">
+        <div class="playground-panel">
+          <h2>Request</h2>
+          <div class="form-group">
+            <label for="api-key-select">API Key</label>
+            <select id="api-key-select">
+              <% apiKeys.forEach(key => { %>
+                <option value="<%= key.key %>"><%= key.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="endpoint-select">Endpoint</label>
+            <select id="endpoint-select">
+              <option value="screenshot">POST /api/screenshot</option>
+              <option value="pdf">POST /api/pdf</option>
+            </select>
+          </div>
+
+          <div id="screenshot-fields">
+            <div class="form-group">
+              <label for="screenshot-url">URL</label>
+              <input type="url" id="screenshot-url" placeholder="https://example.com" value="https://example.com">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="viewport-width">Width</label>
+                <input type="number" id="viewport-width" value="1280">
+              </div>
+              <div class="form-group">
+                <label for="viewport-height">Height</label>
+                <input type="number" id="viewport-height" value="720">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="format-select">Format</label>
+              <select id="format-select">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WebP</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="pdf-fields" style="display:none">
+            <div class="form-group">
+              <label for="pdf-source">Source</label>
+              <select id="pdf-source">
+                <option value="html">HTML Content</option>
+                <option value="url">URL</option>
+              </select>
+            </div>
+            <div class="form-group" id="pdf-html-group">
+              <label for="pdf-html">HTML</label>
+              <textarea id="pdf-html" rows="5" placeholder="<h1>Hello World</h1>">&lt;h1&gt;Hello World&lt;/h1&gt;&lt;p&gt;This is a test PDF.&lt;/p&gt;</textarea>
+            </div>
+            <div class="form-group" id="pdf-url-group" style="display:none">
+              <label for="pdf-url">URL</label>
+              <input type="url" id="pdf-url" placeholder="https://example.com">
+            </div>
+            <div class="form-group">
+              <label for="pdf-title">Title</label>
+              <input type="text" id="pdf-title" placeholder="Document Title" value="Test Document">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="page-size">Page Size</label>
+                <select id="page-size">
+                  <option value="A4">A4</option>
+                  <option value="A3">A3</option>
+                  <option value="Letter">Letter</option>
+                  <option value="Legal">Legal</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="orientation">Orientation</label>
+                <select id="orientation">
+                  <option value="portrait">Portrait</option>
+                  <option value="landscape">Landscape</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button id="send-request" class="btn btn-primary btn-full">Send Request</button>
+        </div>
+
+        <div class="playground-panel">
+          <h2>Response</h2>
+          <div id="response-info" class="response-info">
+            <span id="response-status" class="badge">Ready</span>
+            <span id="response-time"></span>
+            <span id="response-size"></span>
+          </div>
+          <div id="response-output" class="response-output">
+            <p class="placeholder-text">Send a request to see the response</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="/js/playground.js"></script>
+</body>
+</html>
