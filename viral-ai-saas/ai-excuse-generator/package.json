@@ -1,0 +1,19 @@
+{
+  "name": "ai-excuse-generator",
+  "version": "1.0.0",
+  "description": "AI Excuse Generator - Generate creative, believable excuses for any situation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/app.test.js"
+  },
+  "keywords": ["ai", "excuse", "generator", "humor", "saas"],
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.7.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.1"
+  }
+}

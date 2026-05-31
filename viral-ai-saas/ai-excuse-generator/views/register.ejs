@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - AI Excuse Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Excuse Generator</a></div>
+    <div class="nav-links">
+      <a href="/auth/login">Login</a>
+    </div>
+  </nav>
+
+  <section class="auth-section">
+    <div class="auth-card">
+      <h1>Create Account</h1>
+      <p>Sign up to save your excuse history and favorites.</p>
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <form action="/auth/register" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters">
+        </div>
+        <button type="submit" class="btn-generate">Create Account</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="/auth/login">Log in</a></p>
+    </div>
+  </section>
+</body>
+</html>

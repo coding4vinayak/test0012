@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Excuse Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Excuse Generator</a></div>
+    <div class="nav-links">
+      <a href="/">Generate</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <section class="dashboard-section">
+    <h1>Your Excuse History</h1>
+
+    <% if (excuses.length === 0) { %>
+      <div class="empty-state">
+        <p>You have not generated any excuses yet.</p>
+        <a href="/" class="btn-generate">Generate Your First Excuse</a>
+      </div>
+    <% } else { %>
+      <div class="excuse-history">
+        <% excuses.forEach(function(excuse) { %>
+          <% const data = JSON.parse(excuse.excuse_text); %>
+          <div class="history-card">
+            <div class="history-header">
+              <span class="excuse-category-badge"><%= excuse.category %></span>
+              <span class="history-date"><%= new Date(excuse.created_at).toLocaleDateString() %></span>
+            </div>
+            <p class="history-situation"><strong>Situation:</strong> <%= excuse.situation %></p>
+            <p class="history-excuse"><%= data.excuse %></p>
+            <div class="history-scores">
+              <span class="score-badge">Believability: <%= excuse.believability_score %>/10</span>
+              <span class="score-badge">Creativity: <%= excuse.creativity_score %>/10</span>
+            </div>
+            <a href="/excuse/<%= excuse.share_id %>" class="share-link">Share Link</a>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </section>
+</body>
+</html>

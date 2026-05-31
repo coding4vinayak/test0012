@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Excuse Generator - Creative Excuses for Any Situation</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">AI Excuse Generator</div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Need an Excuse? We Got You.</h1>
+    <p class="hero-subtitle">Generate creative, believable excuses for any situation. Work, social, family, school, or fitness - we have you covered.</p>
+  </section>
+
+  <% if (error) { %>
+    <div class="error-message"><%= error %></div>
+  <% } %>
+
+  <section class="generator-section">
+    <h2>Generate Your Excuse</h2>
+
+    <div class="category-cards">
+      <button class="category-card" data-category="work">
+        <span class="category-emoji">💼</span>
+        <span class="category-name">Work</span>
+      </button>
+      <button class="category-card" data-category="social">
+        <span class="category-emoji">🎉</span>
+        <span class="category-name">Social</span>
+      </button>
+      <button class="category-card" data-category="family">
+        <span class="category-emoji">👨‍👩‍👧</span>
+        <span class="category-name">Family</span>
+      </button>
+      <button class="category-card" data-category="school">
+        <span class="category-emoji">📚</span>
+        <span class="category-name">School</span>
+      </button>
+      <button class="category-card" data-category="fitness">
+        <span class="category-emoji">🏋️</span>
+        <span class="category-name">Fitness</span>
+      </button>
+    </div>
+
+    <form id="excuse-form" class="excuse-form">
+      <input type="hidden" id="category-input" name="category" value="">
+      <div class="form-group">
+        <label for="situation-input">Describe your situation:</label>
+        <textarea id="situation-input" name="situation" placeholder="e.g., I need to skip my friend's birthday party this weekend..." rows="3" required></textarea>
+      </div>
+      <button type="submit" id="generate-btn" class="btn-generate">Generate Excuse</button>
+    </form>
+  </section>
+
+  <section class="examples-section">
+    <h2>Example Excuses</h2>
+    <div class="example-cards">
+      <div class="example-card">
+        <span class="example-category">Work</span>
+        <p>"My laptop did a forced Windows update that took 2 hours. It was at 'Do not turn off your computer' and I could not do anything but watch."</p>
+        <div class="example-scores">
+          <span class="score-badge">Believability: 9/10</span>
+          <span class="score-badge">Creativity: 7/10</span>
+        </div>
+      </div>
+      <div class="example-card">
+        <span class="example-category">Social</span>
+        <p>"I threw my back out doing the most embarrassing thing possible - I sneezed too hard. Walking is a comedy show no one asked for."</p>
+        <div class="example-scores">
+          <span class="score-badge">Believability: 8/10</span>
+          <span class="score-badge">Creativity: 9/10</span>
+        </div>
+      </div>
+      <div class="example-card">
+        <span class="example-category">Fitness</span>
+        <p>"I donated blood yesterday and they specifically said no strenuous exercise for 24 hours. I am still feeling lightheaded."</p>
+        <div class="example-scores">
+          <span class="score-badge">Believability: 10/10</span>
+          <span class="score-badge">Creativity: 6/10</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <h2>Why Use AI Excuse Generator?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🎯</span>
+        <h3>Category-Specific</h3>
+        <p>Excuses tailored to work, social, family, school, or fitness contexts.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <h3>Quality Rated</h3>
+        <p>Each excuse rated for believability and creativity so you know what you are working with.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎭</span>
+        <h3>Delivery Tips</h3>
+        <p>Get coaching on how to deliver your excuse for maximum believability.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📤</span>
+        <h3>Shareable</h3>
+        <p>Share your best excuses with friends via unique links.</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="result-section" class="result-section" style="display:none;"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excuse Card - AI Excuse Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Excuse Generator</a></div>
+    <div class="nav-links">
+      <a href="/">Generate Your Own</a>
+    </div>
+  </nav>
+
+  <section class="share-page">
+    <h1>Excuse Card</h1>
+
+    <div class="excuse-card shared-card">
+      <div class="excuse-category-badge"><%= excuse.data.category %></div>
+      <p class="excuse-situation">Situation: "<%= excuse.data.situation %>"</p>
+      <div class="excuse-text"><%= excuse.data.excuse %></div>
+
+      <div class="scores-row">
+        <div class="score-item">
+          <span class="score-label">Believability</span>
+          <span class="score-value"><%= excuse.data.believabilityScore %>/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Creativity</span>
+          <span class="score-value"><%= excuse.data.creativityScore %>/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Risk Level</span>
+          <span class="risk-badge risk-<%= excuse.data.riskLevel %>"><%= excuse.data.riskLevel %></span>
+        </div>
+      </div>
+
+      <div class="delivery-tips">
+        <h3>Delivery Tips</h3>
+        <p><%= excuse.data.deliveryTips %></p>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Need your own excuse?</h2>
+      <a href="/" class="btn-generate">Generate Your Excuse</a>
+    </div>
+  </section>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
