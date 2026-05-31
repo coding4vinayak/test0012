@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= idea.startup_name %> - AI Startup Idea Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Startup Idea Generator</a></div>
+    <div class="nav-links">
+      <a href="/">Generate Another</a>
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="result-page">
+    <div class="pitch-deck">
+      <div class="pitch-header">
+        <div class="logo-placeholder"><%= idea.startup_name.charAt(0) %></div>
+        <h1 class="startup-name"><%= idea.startup_name %></h1>
+        <p class="startup-tagline"><%= idea.tagline %></p>
+        <span class="vibe-badge vibe-<%= idea.vibe %>"><%= idea.vibe %></span>
+      </div>
+
+      <div class="pitch-section">
+        <h2>Elevator Pitch</h2>
+        <div class="elevator-pitch"><%= idea.description %></div>
+      </div>
+
+      <div class="valuation-section">
+        <h2>Valuation</h2>
+        <div class="valuation-number"><%= idea.valuation %></div>
+        <p class="valuation-label">Series A</p>
+      </div>
+
+      <div class="investors-section">
+        <h2>What Investors Are Saying</h2>
+        <div class="investor-cards">
+          <% idea.investorFeedback.forEach(function(inv) { %>
+            <div class="investor-card investor-<%= inv.sentiment %>">
+              <p class="investor-quote">"<%= inv.quote %>"</p>
+              <p class="investor-name"><%= inv.name %></p>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="team-section">
+        <h2>The Dream Team</h2>
+        <div class="team-cards">
+          <% idea.teamRoles.forEach(function(member) { %>
+            <div class="team-card">
+              <div class="team-avatar"><%= member.name.charAt(0) %></div>
+              <p class="team-name"><%= member.name %></p>
+              <p class="team-title"><%= member.title %></p>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="market-section">
+        <h2>Total Addressable Market</h2>
+        <div class="market-size"><%= idea.market_size %></div>
+        <p class="market-label">TAM Estimate</p>
+      </div>
+
+      <div class="scores-section">
+        <div class="score-item">
+          <span class="score-label">Absurdity Score</span>
+          <span class="score-value"><%= idea.absurdity_score %>/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Viability Score</span>
+          <span class="score-value"><%= idea.viability_score %>/10</span>
+        </div>
+      </div>
+
+      <div class="share-section">
+        <a href="/idea/<%= idea.share_id %>" class="share-link">Share This Idea</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

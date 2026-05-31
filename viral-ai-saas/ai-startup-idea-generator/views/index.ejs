@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Startup Idea Generator - Generate Your Next Billion Dollar Idea</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">AI Startup Idea Generator</div>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Sign Up</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Generate Your Next Billion Dollar Startup Idea</h1>
+    <p class="hero-subtitle">Pick an industry, choose your vibe, and let our AI generate a wild but plausible startup concept complete with fake valuations, investor quotes, and absurd C-suite roles.</p>
+  </section>
+
+  <% if (error) { %>
+    <div class="error-message"><%= error %></div>
+  <% } %>
+
+  <section class="generator-section">
+    <h2>Build Your Startup</h2>
+
+    <div class="industry-selector">
+      <h3>Select an Industry</h3>
+      <div class="industry-cards">
+        <button class="industry-card" data-industry="AI">
+          <span class="industry-emoji">🤖</span>
+          <span class="industry-name">AI</span>
+        </button>
+        <button class="industry-card" data-industry="Blockchain">
+          <span class="industry-emoji">🔗</span>
+          <span class="industry-name">Blockchain</span>
+        </button>
+        <button class="industry-card" data-industry="IoT">
+          <span class="industry-emoji">📡</span>
+          <span class="industry-name">IoT</span>
+        </button>
+        <button class="industry-card" data-industry="AR/VR">
+          <span class="industry-emoji">🥽</span>
+          <span class="industry-name">AR/VR</span>
+        </button>
+        <button class="industry-card" data-industry="Fintech">
+          <span class="industry-emoji">💳</span>
+          <span class="industry-name">Fintech</span>
+        </button>
+        <button class="industry-card" data-industry="Healthtech">
+          <span class="industry-emoji">🏥</span>
+          <span class="industry-name">Healthtech</span>
+        </button>
+        <button class="industry-card" data-industry="Edtech">
+          <span class="industry-emoji">📚</span>
+          <span class="industry-name">Edtech</span>
+        </button>
+        <button class="industry-card" data-industry="Foodtech">
+          <span class="industry-emoji">🍕</span>
+          <span class="industry-name">Foodtech</span>
+        </button>
+        <button class="industry-card" data-industry="Spacetech">
+          <span class="industry-emoji">🚀</span>
+          <span class="industry-name">Spacetech</span>
+        </button>
+        <button class="industry-card" data-industry="Cleantech">
+          <span class="industry-emoji">🌱</span>
+          <span class="industry-name">Cleantech</span>
+        </button>
+        <button class="industry-card" data-industry="Biotech">
+          <span class="industry-emoji">🧬</span>
+          <span class="industry-name">Biotech</span>
+        </button>
+        <button class="industry-card" data-industry="Quantum">
+          <span class="industry-emoji">⚛️</span>
+          <span class="industry-name">Quantum</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="vibe-selector">
+      <h3>Choose Your Vibe</h3>
+      <div class="vibe-toggle">
+        <button class="vibe-btn" data-vibe="serious">
+          <span class="vibe-emoji">👔</span>
+          <span class="vibe-name">Serious</span>
+          <span class="vibe-desc">Plausible pitch deck energy</span>
+        </button>
+        <button class="vibe-btn" data-vibe="absurd">
+          <span class="vibe-emoji">🤪</span>
+          <span class="vibe-name">Absurd</span>
+          <span class="vibe-desc">Maximum chaos, minimal sense</span>
+        </button>
+        <button class="vibe-btn" data-vibe="moonshot">
+          <span class="vibe-emoji">🌙</span>
+          <span class="vibe-name">Moonshot</span>
+          <span class="vibe-desc">10x thinking, infinite ambition</span>
+        </button>
+      </div>
+    </div>
+
+    <form id="idea-form" class="idea-form">
+      <input type="hidden" id="industry-input" name="industry" value="">
+      <input type="hidden" id="vibe-input" name="vibe" value="">
+      <button type="submit" id="generate-btn" class="btn-generate">Generate Startup Idea</button>
+    </form>
+  </section>
+
+  <section class="examples-section">
+    <h2>Example Ideas</h2>
+    <div class="example-cards">
+      <div class="example-card">
+        <span class="example-vibe">Absurd</span>
+        <h3>TurboSync</h3>
+        <p class="example-tagline">"What if Blockchain and Grandmas had a baby? We are that baby."</p>
+        <p class="example-valuation">Valuation: $450M Series A</p>
+      </div>
+      <div class="example-card">
+        <span class="example-vibe">Moonshot</span>
+        <h3>NeoVerse</h3>
+        <p class="example-tagline">"Reimagining the entire Pets sector through AI from first principles."</p>
+        <p class="example-valuation">Valuation: $2.4B Series A</p>
+      </div>
+      <div class="example-card">
+        <span class="example-vibe">Serious</span>
+        <h3>ApexFlow</h3>
+        <p class="example-tagline">"Enterprise-grade Fintech solutions for the Fitness industry."</p>
+        <p class="example-valuation">Valuation: $87M Series A</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <h2>Why Use Startup Idea Generator?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">💡</span>
+        <h3>Instant Inspiration</h3>
+        <p>Get wild startup concepts combining unexpected industries and verticals.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💰</span>
+        <h3>Fake Valuations</h3>
+        <p>Every idea comes with a completely made-up but convincing Series A valuation.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎤</span>
+        <h3>Investor Quotes</h3>
+        <p>Mock feedback from fictional VCs who are either all-in or deeply concerned.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📤</span>
+        <h3>Shareable Cards</h3>
+        <p>Share your generated startup ideas with friends via unique links.</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="result-section" class="result-section" style="display:none;"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Startup Idea Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Startup Idea Generator</a></div>
+    <div class="nav-links">
+      <a href="/">Generate</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <section class="dashboard-section">
+    <h1>Your Startup Ideas</h1>
+
+    <% if (ideas.length === 0) { %>
+      <div class="empty-state">
+        <p>You have not generated any startup ideas yet.</p>
+        <a href="/" class="btn-generate">Generate Your First Idea</a>
+      </div>
+    <% } else { %>
+      <div class="idea-history">
+        <% ideas.forEach(function(idea) { %>
+          <div class="history-card">
+            <div class="history-header">
+              <span class="startup-name-badge"><%= idea.startup_name %></span>
+              <span class="vibe-badge vibe-<%= idea.vibe %>"><%= idea.vibe %></span>
+              <span class="history-date"><%= new Date(idea.created_at).toLocaleDateString() %></span>
+            </div>
+            <p class="history-tagline"><%= idea.tagline %></p>
+            <div class="history-meta">
+              <span class="industry-badge"><%= idea.industry %></span>
+              <span class="valuation-badge"><%= idea.valuation %></span>
+            </div>
+            <a href="/idea/<%= idea.share_id %>" class="share-link">View Full Idea</a>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </section>
+</body>
+</html>

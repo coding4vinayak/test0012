@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AI Startup Idea Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">AI Startup Idea Generator</a></div>
+    <div class="nav-links">
+      <a href="/auth/register">Sign Up</a>
+    </div>
+  </nav>
+
+  <section class="auth-section">
+    <div class="auth-card">
+      <h1>Welcome Back</h1>
+      <p>Log in to save and manage your startup ideas.</p>
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <form action="/auth/login" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Your password">
+        </div>
+        <button type="submit" class="btn-generate">Log In</button>
+      </form>
+
+      <p class="auth-switch">Don't have an account? <a href="/auth/register">Sign up</a></p>
+    </div>
+  </section>
+</body>
+</html>
